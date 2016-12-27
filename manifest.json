@@ -1,0 +1,22 @@
+{
+  "name": "youbora-videojs5-adapter",
+  "type": "adapter",
+  "tech": "js",
+  "author": "Jordi Aguilar",
+  "version": "6.0.0-rc",
+  "libVersion": "6.0.0-rc",
+  "built": "Tue Dec 27 2016",
+  "features": {
+    "buffer": "monitor",
+    "seek": "native",
+    "getters": [
+      "getPlayhead",
+      "getDuration",
+      "getBitrate",
+      "getThroughput",
+      "getRendition",
+      "getTitle",
+      "getResource"
+    ]
+  }
+}

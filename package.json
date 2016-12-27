@@ -1,0 +1,27 @@
+{
+  "name": "youbora-videojs5-adapter",
+  "version": "6.0.0-rc",
+  "main": "src/adapter.js",
+  "description": "Adapter for NPAW's youboralib",
+  "scripts": {
+    "build": "gulp build",
+    "version": "npm run build && git add -A",
+    "postversion": "git push && git push --tags"
+  },
+  "dependencies": {
+    "youboralib": "git+https://github.com/NPAW/plugin-core-js.git"
+  },
+  "devDependencies": {
+    "fs": "0.0.1-security",
+    "gulp-npawify": "^1.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NPAW/videojs5-adapter-js.git"
+  },
+  "author": "Jordi Aguilar",
+  "license": "MIT",
+  "bugs": {
+    "email": "support@nicepeopleatwork.com"
+  }
+}

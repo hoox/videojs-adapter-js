@@ -1,0 +1,66 @@
+</html>
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- VideoJS -->
+  <link href="http://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
+  <script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
+  <!---->
+  <!-- YouboraLib -->
+  <script src="../dist/sp.min.js"></script>
+  <!---->
+</head>
+
+<body>
+  <h1>VideoJS5 Video</h1>
+  <video id="video1" class="video-js vjs-default-skin" controls>
+    <source src="http://fastly.nicepeopleatwork.com.global.prod.fastly.net/video/sintel-1024-surround.mp4" type='video/mp4'>
+    <p class="vjs-no-js">To view this video please enable JavaScript.</p>
+  </video>
+  <script>
+    // Player init
+    window.player = videojs('video1')
+
+    // Turn on logs
+    youbora.Log.logLevel = youbora.Log.Level.DEBUG
+
+    // Init youbora
+    if (typeof youbora.adapters.Videojs5 != "undefined") {
+      window.plugin = new youbora.Plugin({
+        'accountCode': 'nicedev',
+        // 'username': 'dev',
+        // 'parse.HLS': true,
+        // 'parse.CDNNode': true,
+        // 'network.ip': '1.1.1.1',
+        // 'network.isp': 'MyISP',
+        // 'network.connectionType': 'dialup',
+        // 'content.transactionCode': 'myTransCode',
+        // 'content.resource': 'mysrc.mp4',
+        // 'content.isLive': true,
+        // 'content.title': 'My Title',
+        // 'content.title2': 'My Title2',
+        // 'content.duration': 100,
+        // 'content.fps': '100',
+        // 'content.bitrate': 1000000,
+        // 'content.throughput': 8000000,
+        // 'content.rendition': 'My Rendition',
+        // 'content.cdn': 'NICE264',
+        // 'content.metadata': {
+        //   custom_info: 'info'
+        // },
+        // 'ad.metadata': {
+        //   custom_info: 'info'
+        // },
+        // 'extraparam.1': 'myExtraParam1',
+        // 'extraparam.2': 'myExtraParam2'
+      })
+
+      plugin.setAdapter(new youbora.adapters.Videojs5(player))
+    }
+
+  </script>
+<script src="/src/v5/util/inspector/inspector.js"></script>
+</body>
+
+</html>

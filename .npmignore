@@ -1,0 +1,28 @@
+.DS_Store
+*.swp
+*.swo
+*.orig
+.idea
+ext/
+.vscode
+
+# Dependency folders
+node_modules
+bower_components
+
+# temp and output folders
+coverage/
+docs/
+tmp/
+
+#logs
+*.log
+
+#npm ignore
+spec/
+gulp/
+samples/
+gulpfile.js
+.eslintrc
+.travis.yml
+jsconfig.json
