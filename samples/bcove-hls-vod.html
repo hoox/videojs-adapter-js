@@ -1,22 +1,14 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <!-- VideoJS -->
-  <link href="http://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
-  <script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
-  <!---->
+<body>
+  <h1>VideoJS5 Video</h1>
+  <video id="video1" data-video-id="4712872493001" data-account="2564185535001" data-player="4kziOuIcql" data-embed="default"
+    class="video-js" controls></video>
+  <script src="//players.brightcove.net/2564185535001/4kziOuIcql_default/index.min.js"></script>
   <!-- YouboraLib -->
   <script src="../dist/sp.min.js"></script>
   <!---->
-</head>
-
-<body>
-  <h1>VideoJS5 Video</h1>
-  <video id="video1" class="video-js vjs-default-skin" controls>
-    <source src="http://fastly.nicepeopleatwork.com.global.prod.fastly.net/video/sintel-1024-surround.mp4" type='video/mp4'>
-    <p class="vjs-no-js">To view this video please enable JavaScript.</p>
-  </video>
   <script>
     // Player init
     window.player = videojs('video1')

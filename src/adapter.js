@@ -1,9 +1,9 @@
 var youbora = require('youboralib')
-var pkg = require('../manifest.json')
+var manifest = require('../manifest.json')
 
 youbora.adapters.Videojs5 = youbora.Adapter.extend({
   getVersion: function () {
-    return pkg.version + '-videojs5'
+    return manifest.version + '-videojs5'
   },
 
   getPlayhead: function () {
@@ -44,30 +44,37 @@ youbora.adapters.Videojs5 = youbora.Adapter.extend({
 
   getBitrate: function () {
     if (this.getTech().hls) { // contrib hls
-      return this.getTech().hls.playlists.media().attributes.BANDWIDTH
+      var media = this.getTech().hls.playlists.media()
+      if (media && media.attributes) return media.attributes.BANDWIDTH
     } else if (this.getTech().hls_) { // hlsjs
-      return this.getTech().hls_.levels[this.getTech().hls_.currentLevel].bitrate
+      var level = this.getTech().hls_.levels[this.getTech().hls_.currentLevel]
+      if (level && level.bitrate) return level.bitrate
     }
   },
 
   getRendition: function () {
     if (this.getTech().hls) { // contrib hls
-      var att = this.getTech().hls.playlists.media().attributes
-      if (att.NAME) {
-        return att.NAME
-      } else {
-        return youbora.Utils.buildRenditionString(
-          att.RESOLUTION.width,
-          att.RESOLUTION.height,
-          att.BANDWIDTH
-        )
+      var media = this.getTech().hls.playlists.media()
+      if (media && media.attributes) {
+        var att = media.attributes
+        if (att.NAME) {
+          return att.NAME
+        } else if (att.RESOLUTION) {
+          return youbora.Util.buildRenditionString(
+            att.RESOLUTION.width,
+            att.RESOLUTION.height,
+            att.BANDWIDTH
+          )
+        } else {
+          return youbora.Util.buildRenditionString(att.BANDWIDTH)
+        }
       }
     } else if (this.getTech().hls_) { // hlsjs
       var level = this.getTech().hls_.levels[this.getTech().hls_.currentLevel]
-      if (level.name) {
+      if (level && level.name) {
         return level.name
       } else {
-        return youbora.Utils.buildRenditionString(level.width, level.height, level.bitrate)
+        return youbora.Util.buildRenditionString(level.width, level.height, level.bitrate)
       }
     }
   },
@@ -117,9 +124,6 @@ youbora.adapters.Videojs5 = youbora.Adapter.extend({
     this.player.on('seeking', this.seekingListener.bind(this))
     this.player.on('seeked', this.seekedListener.bind(this))
     this.player.on('error', this.errorListener.bind(this))
-    // this.player.on('adstart', this.adstartListener.bind(this))
-    // this.player.on('adend', this.adendListener.bind(this))
-    // this.player.on('adskip', this.adskipListener.bind(this))
   },
 
   loadstartListener: function (e) {
@@ -194,9 +198,6 @@ youbora.adapters.Videojs5 = youbora.Adapter.extend({
     this.player.off('seeked', this.seekedListener)
     this.player.off('timeupdate', this.timeupdateListener)
     this.player.off('error', this.errorListener)
-    this.player.off('adstart', this.adstartListener)
-    this.player.off('adend', this.adendListener)
-    this.player.off('adskip', this.adskipListener)
   }
 })
 
