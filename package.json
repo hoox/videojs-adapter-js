@@ -11,7 +11,7 @@
     "deploy": "rm -rf deploy && gulp deploy"
   },
   "dependencies": {
-    "youbora-plugins-core": "git+https://github.com/NPAW/plugin-core-js.git"
+    "youbora-plugins-core": "git+https://github.com/NPAW/plugins-core-js.git"
   },
   "devDependencies": {
     "fs": "0.0.1-security",
