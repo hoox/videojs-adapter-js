@@ -5,6 +5,7 @@
 ```
 /
 ├── dist/  Built & Minified files ready to include and run
+├── samples/  Samples/examples with different environment and resources.
 └── src/   Sourcecode of the project
 ```
 
@@ -13,13 +14,3 @@ Please refer to [this](http://developer.nicepeopleatwork.com/plugins/integration
 
 ## I need help!
 If you find a bug, have a suggestion or need assistance send an e-mail to <support@nicepeopleatwork.com>
-
-## Contribute
-Fork the repo and run the following command:
-
-```
-npm install
-npm run build
-```
-
-This will install and execute gulp build. Develop your changes and open a pull-request.

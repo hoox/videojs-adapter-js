@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+- '6'
+before_deploy: npm run deploy
+deploy:
+  provider: s3
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  region: $AWS_DEFAULT_REGION
+  bucket: youbora-smartplugins
+  skip_cleanup: true
+  local-dir: "deploy"
+  upload-dir: "v6/js/adapters/videojs5"
+  acl: "public_read"
+  on:
+    tags: true
+    repo: NPAW/videojs5-adapter-js

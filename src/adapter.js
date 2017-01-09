@@ -133,6 +133,7 @@ youbora.adapters.Videojs5 = youbora.Adapter.extend({
 
   playListener: function (e) {
     this.fireStart()
+    this.loadAdsAdapter()
   },
 
   timeupdateListener: function (e) {
@@ -198,7 +199,34 @@ youbora.adapters.Videojs5 = youbora.Adapter.extend({
     this.player.off('seeked', this.seekedListener)
     this.player.off('timeupdate', this.timeupdateListener)
     this.player.off('error', this.errorListener)
+  },
+
+  loadAdsAdapter: function () {
+    if (this.plugin.getAdsAdapter() === null) {
+      var adapter
+      if (typeof google !== 'undefined') {
+        if (this.player.mediainfo && this.player.ads && this.player.ima3) { // Brightcove+IMA
+          adapter = new youbora.adapters.Videojs5.BrightcoveAdsAdapter(this.player)
+        } else if (this.player.ima) { // IMA Standalone
+          adapter = new youbora.adapters.Videojs5.ImaAdsAdapter(this.player)
+        }
+      } else if (this.player.onceux) { // OnceUX
+        adapter = new youbora.adapters.Videojs5.OnceUXAdsAdapter(this.player)
+      } else { // Generic
+        adapter = new youbora.adapters.Videojs5.GenericAdsAdapter(this.player)
+      }
+
+      this.plugin.setAdsAdapter(adapter)
+    }
   }
-})
+},
+  // Static members
+  {
+    GenericAdsAdapter: require('./ads/generic'),
+    ImaAdsAdapter: require('./ads/generic'),
+    BrightcoveAdsAdapter: require('./ads/brightcove'),
+    OnceUXAdsAdapter: require('./ads/generic')
+  }
+)
 
 module.exports = youbora.adapters.Videojs5

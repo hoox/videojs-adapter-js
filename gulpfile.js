@@ -1,6 +1,7 @@
 var gulp = require('gulp')
 var npawify = require('gulp-npawify')
 var fs = require('fs')
+var path = require('path')
 var pkg = require('./package.json')
 var lib = require('youboralib')
 
@@ -25,7 +26,7 @@ gulp.task('watch', ['manifest'], npawify(npawify.assign({}, options, { watch: tr
 gulp.task('default', ['build'])
 
 gulp.task('manifest', function () {
-  var file = fs.readFileSync('src/adapter.js')
+  var file = fs.readFileSync(path.join(__dirname, 'src/adapter.js'))
   var allgetters = [
     'getPlayhead',
     'getPlayrate',
@@ -48,9 +49,10 @@ gulp.task('manifest', function () {
       getters.push(element)
     }
   }
-
+  var name = pkg.name
+  if (name.indexOf('youbora-adapter-') === 0) name = name.slice(16)
   var manifest = {
-    name: pkg.name,
+    name: name,
     type: 'adapter',
     tech: 'js',
     author: pkg.author,
@@ -64,4 +66,31 @@ gulp.task('manifest', function () {
     }
   }
   fs.writeFile('./manifest.json', JSON.stringify(manifest, null, '  '), { mode: '664' })
+})
+
+gulp.task('deploy', function () {
+  var origin = path.join(__dirname, './dist/sp.min.js')
+  var manifest = path.join(__dirname, './manifest.json')
+
+  if (fs.existsSync(origin)) {
+    var dir = path.join(__dirname, './deploy')
+    var last = dir + '/last'
+    var ver = dir + '/' + pkg.version
+
+    fs.mkdirSync(dir)
+    fs.mkdirSync(last)
+    fs.mkdirSync(ver)
+
+    fs.createReadStream(origin)
+      .pipe(fs.createWriteStream(ver + '/sp.min.js'))
+
+    fs.createReadStream(manifest)
+      .pipe(fs.createWriteStream(ver + '/manifest.json'))
+
+    fs.createReadStream(origin)
+      .pipe(fs.createWriteStream(last + '/sp.min.js'))
+
+    fs.createReadStream(manifest)
+      .pipe(fs.createWriteStream(last + '/manifest.json'))
+  }
 })

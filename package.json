@@ -1,19 +1,21 @@
 {
-  "name": "youbora-videojs5-adapter",
+  "name": "youbora-adapter-videojs5",
   "version": "6.0.0-rc",
   "main": "src/adapter.js",
   "description": "Adapter for NPAW's youboralib",
   "scripts": {
     "build": "gulp build",
+    "postinstall": "npm run build",
     "version": "npm run build && git add -A",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "deploy": "rm -rf deploy && gulp deploy"
   },
   "dependencies": {
-    "youboralib": "git+https://github.com/NPAW/plugin-core-js.git"
+    "youbora-plugins-core": "git+https://github.com/NPAW/plugin-core-js.git"
   },
   "devDependencies": {
     "fs": "0.0.1-security",
-    "gulp-npawify": "^1.0.2"
+    "gulp-npawify": "^1.0.X"
   },
   "repository": {
     "type": "git",
