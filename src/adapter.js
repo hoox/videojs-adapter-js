@@ -105,8 +105,8 @@ youbora.adapters.Videojs5 = youbora.Adapter.extend({
   },
 
   registerListeners: function () {
-    // Prints all events if debug is enabled
-    youbora.Util.listenAllEvents(this.player, [
+    // Console all events if logLevel=DEBUG
+    youbora.Util.logAllEvents(this.player, [
       'adstart', 'adend', 'adskip', 'adsready', 'adserror', 'dispose'])
 
     // Enable playhead monitor
