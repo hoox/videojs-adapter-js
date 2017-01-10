@@ -5,10 +5,10 @@
   "description": "Adapter for NPAW's youboralib",
   "scripts": {
     "build": "gulp build",
+    "deploy": "rm -rf deploy && gulp deploy",
     "prepublish": "npm run build",
     "preversion": "npm run build",
-    "postversion": "git push && git push --tags",
-    "deploy": "rm -rf deploy && gulp deploy"
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "youboralib": "git+https://github.com/NPAW/plugins-core-js.git"
