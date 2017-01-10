@@ -22,75 +22,35 @@ var options = {
 }
 
 gulp.task('build', ['manifest'], npawify(options))
-gulp.task('watch', ['manifest'], npawify(npawify.assign({}, options, { watch: true })))
+gulp.task('watch', ['manifest'], npawify(options, { watch: true }))
 gulp.task('default', ['build'])
 
 gulp.task('manifest', function () {
-  var file = fs.readFileSync(path.join(__dirname, 'src/adapter.js'))
-  var allgetters = [
-    'getPlayhead',
-    'getPlayrate',
-    'getFramesPerSecond',
-    'getDroppedFrames',
-    'getDuration',
-    'getBitrate',
-    'getThroughput',
-    'getRendition',
-    'getTitle',
-    'getTitle2',
-    'getIsLive',
-    'getResource',
-    'getPosition'
-  ]
-  var getters = []
-  for (var i = 0; i < allgetters.length; i++) {
-    var element = allgetters[i]
-    if (file.indexOf(element) !== -1) {
-      getters.push(element)
-    }
-  }
-  var name = pkg.name
-  if (name.indexOf('youbora-adapter-') === 0) name = name.slice(16)
-  var manifest = {
-    name: name,
-    type: 'adapter',
-    tech: 'js',
-    author: pkg.author,
-    version: pkg.version,
-    libVersion: lib.VERSION,
-    built: new Date().toDateString(),
-    features: {
-      buffer: file.indexOf('fireBufferBegin') !== -1 ? 'native' : 'monitor',
-      seek: file.indexOf('fireSeekBegin') !== -1 ? 'native' : 'monitor',
-      getters: getters
+  var manifest = npawify.analyze(fs.readFileSync(path.join(__dirname, 'src/adapter.js')), pkg)
+  manifest.libVersion = lib.VERSION
+  if (fs.existsSync('./src/ads/')) {
+    manifest.ads = []
+    var files = fs.readdirSync('./src/ads/')
+    for (var i = 0; i < files.length; i++) {
+      var info = npawify.analyze(fs.readFileSync(path.join(__dirname, 'src/ads/' + files[i])))
+      info.filename = files[i]
+      manifest.ads.push(info)
     }
   }
   fs.writeFile('./manifest.json', JSON.stringify(manifest, null, '  '), { mode: '664' })
 })
 
-gulp.task('deploy', function () {
-  var origin = path.join(__dirname, './dist/sp.min.js')
+gulp.task('deploy', function (done) {
+  var sp = path.join(__dirname, './dist/sp.min.js')
   var manifest = path.join(__dirname, './manifest.json')
 
-  if (fs.existsSync(origin)) {
+  if (fs.existsSync(sp)) {
     var dir = path.join(__dirname, './deploy')
-    var last = dir + '/last'
-    var ver = dir + '/' + pkg.version
-
-    fs.mkdirSync(dir)
-    fs.mkdirSync(last)
-    fs.mkdirSync(ver)
-
-    fs.createReadStream(origin)
-      .pipe(fs.createWriteStream(ver + '/sp.min.js'))
-
-    fs.createReadStream(manifest)
-      .pipe(fs.createWriteStream(ver + '/manifest.json'))
-
-    fs.createReadStream(origin)
-      .pipe(fs.createWriteStream(last + '/sp.min.js'))
-
-    fs.createReadStream(manifest)
-      .pipe(fs.createWriteStream(last + '/manifest.json'))
+    npawify.copyfiles([sp, manifest, dir + '/last'], true, function (err) {
+      if (err) done(err)
+      npawify.copyfiles([sp, manifest, dir + '/' + pkg.version], true, function (err) {
+        done(err)
+      })
+    })
   }
 })

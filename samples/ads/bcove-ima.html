@@ -1,27 +1,15 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <!-- VideoJS -->
-  <link href="http://vjs.zencdn.net/5.14.1/video-js.css" rel="stylesheet">
-  <script src="http://vjs.zencdn.net/5.14.1/video.js"></script>
-  <!---->
-  <!-- HLS -->
-  <script src="http://videojs.github.io/videojs-contrib-hls/node_modules/videojs-contrib-hls/dist/videojs.hls.min.js"></script>
-  <!-- -->
-  <!-- YouboraLib -->
-  <script src="../dist/sp.min.js"></script>
-  <!---->
-</head>
-
 <body>
-  <h1>VideoJS5 Video</h1>
-  <video id="video1" class="video-js vjs-default-skin" controls>
-    <source src="http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8" type="application/x-mpegURL">
-    <p class="vjs-no-js">To view this video please enable JavaScript.</p>
-  </video>
+  <video data-video-id="4712872493001" data-account="2564185535001" data-player="EkutSUWnl" data-embed="default" class="video-js"
+    id="video1" controls></video>
+  <script src="//players.brightcove.net/2564185535001/EkutSUWnl_default/index.js"></script>
+  <!-- YouboraLib -->
+  <script src="../../dist/sp.min.js"></script>
+  <!---->
   <script>
-    // Player init
+    // load video
     window.player = videojs('video1')
 
     // Turn on logs
@@ -58,8 +46,8 @@
         // 'extraparam.2': 'myExtraParam2'
       })
 
-      plugin.setAdapter(new youbora.adapters.Videojs5(playe
-       
+      plugin.setAdapter(new youbora.adapters.Videojs5(player))
+    }
   </script>
 </body>
 

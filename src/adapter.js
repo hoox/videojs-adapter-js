@@ -1,3 +1,4 @@
+/* global videojs:true */
 var youbora = require('youboralib')
 var manifest = require('../manifest.json')
 
@@ -7,7 +8,9 @@ youbora.adapters.Videojs5 = youbora.Adapter.extend({
   },
 
   getPlayhead: function () {
-    if (this.player.absoluteTime) {
+    if (this.player.ads && this.player.ads.snapshot && this.player.ads.snapshot.currentTime) {
+      return this.player.ads.snapshot.currentTime
+    } else if (this.player.absoluteTime) {
       return this.player.absoluteTime()
     } else {
       return this.player.currentTime()
@@ -114,6 +117,7 @@ youbora.adapters.Videojs5 = youbora.Adapter.extend({
 
     // Register listeners
     this.player.on('loadstart', this.loadstartListener.bind(this))
+    this.player.on('adsready', this.adsreadyListener.bind(this))
     this.player.on('play', this.playListener.bind(this))
     this.player.on('timeupdate', this.timeupdateListener.bind(this))
     this.player.on('pause', this.pauseListener.bind(this))
@@ -131,9 +135,12 @@ youbora.adapters.Videojs5 = youbora.Adapter.extend({
     if (this.player.autoplay()) this.fireStart()
   },
 
+  adsreadyListener: function (e) {
+    this.loadAdsAdapter()
+  },
+
   playListener: function (e) {
     this.fireStart()
-    this.loadAdsAdapter()
   },
 
   timeupdateListener: function (e) {
@@ -189,6 +196,7 @@ youbora.adapters.Videojs5 = youbora.Adapter.extend({
 
     // unregister listeners
     this.player.off('loadstart', this.loadstartListener)
+    this.player.off('adsready', this.adsreadyListener)
     this.player.off('play', this.playListener)
     this.player.off('playing', this.playingListener)
     this.player.off('pause', this.pauseListener)
@@ -223,9 +231,9 @@ youbora.adapters.Videojs5 = youbora.Adapter.extend({
   // Static members
   {
     GenericAdsAdapter: require('./ads/generic'),
-    ImaAdsAdapter: require('./ads/generic'),
+    ImaAdsAdapter: require('./ads/ima'),
     BrightcoveAdsAdapter: require('./ads/brightcove'),
-    OnceUXAdsAdapter: require('./ads/generic')
+    OnceUXAdsAdapter: require('./ads/onceux')
   }
 )
 

@@ -1,11 +1,10 @@
 {
-  "name": "youbora-videojs5-adapter",
+  "name": "videojs5",
   "type": "adapter",
   "tech": "js",
   "author": "Jordi Aguilar",
   "version": "6.0.0-rc",
-  "libVersion": "6.0.0-rc",
-  "built": "Wed Dec 28 2016",
+  "built": "Tue Jan 10 2017",
   "features": {
     "buffer": "monitor",
     "seek": "native",
@@ -18,5 +17,62 @@
       "getTitle",
       "getResource"
     ]
-  }
+  },
+  "libVersion": "6.0.0-rc",
+  "ads": [
+    {
+      "type": "adapter",
+      "tech": "js",
+      "built": "Tue Jan 10 2017",
+      "features": {
+        "buffer": "monitor",
+        "seek": "monitor",
+        "getters": [
+          "getPlayhead"
+        ]
+      },
+      "filename": "brightcove.js"
+    },
+    {
+      "type": "adapter",
+      "tech": "js",
+      "built": "Tue Jan 10 2017",
+      "features": {
+        "buffer": "monitor",
+        "seek": "monitor",
+        "getters": []
+      },
+      "filename": "generic.js"
+    },
+    {
+      "type": "adapter",
+      "tech": "js",
+      "built": "Tue Jan 10 2017",
+      "features": {
+        "buffer": "monitor",
+        "seek": "monitor",
+        "getters": [
+          "getPlayhead",
+          "getDuration",
+          "getTitle"
+        ]
+      },
+      "filename": "ima.js"
+    },
+    {
+      "type": "adapter",
+      "tech": "js",
+      "built": "Tue Jan 10 2017",
+      "features": {
+        "buffer": "monitor",
+        "seek": "monitor",
+        "getters": [
+          "getPlayhead",
+          "getDuration",
+          "getResource"
+        ]
+      },
+      "filename": "onceux.js"
+    }
+  ]
 }

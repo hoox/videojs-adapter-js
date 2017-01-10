@@ -6,18 +6,29 @@
   <link href="http://vjs.zencdn.net/5.14.1/video-js.css" rel="stylesheet">
   <script src="http://vjs.zencdn.net/5.14.1/video.js"></script>
   <!---->
-  <!-- HLS -->
-  <script src="http://videojs.github.io/videojs-contrib-hls/node_modules/videojs-contrib-hls/dist/videojs.hls.min.js"></script>
-  <!-- -->
-  <!-- YouboraLib -->
-  <script src="../dist/sp.min.js"></script>
-  <!---->
+  <!-- IMA3 -->
+  <script src="http://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-ads/4.2.0/videojs.ads.min.css" rel="stylesheet" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-ads/4.2.0/videojs.ads.min.js"></script>
+
+  <link href="../lib/videojs-ima-0.4.0/videojs.ima.css" rel="stylesheet" type="text/css">
+  <script src="../lib/videojs-ima-0.4.0/videojs.ima.js"></script>
+  <style>
+    .vjs-ad-playing.vjs-ad-playing .vjs-control-bar {
+        display: none;
+    }
+    </style>
+<!---->
+<!-- YouboraLib -->
+<script src="../../dist/sp.min.js"></script>
+<!---->
 </head>
 
 <body>
   <h1>VideoJS5 Video</h1>
   <video id="video1" class="video-js vjs-default-skin" controls>
-    <source src="http://qthttp.apple.com.edgesuite.net/1010qwoeiuryfg/sl.m3u8" type="application/x-mpegURL">
+    <source src="http://fastly.nicepeopleatwork.com.global.prod.fastly.net/video/sintel-1024-surround.mp4" type='video/mp4'>
     <p class="vjs-no-js">To view this video please enable JavaScript.</p>
   </video>
   <script>
@@ -58,8 +69,26 @@
         // 'extraparam.2': 'myExtraParam2'
       })
 
-      plugin.setAdapter(new youbora.adapters.Videojs5(playe
-       
+      plugin.setAdapter(new youbora.adapters.Videojs5(player))
+
+      // IMA3
+      player.ima({
+        id: 'video1',
+        adTagUrl: 'http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&' +
+        'iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&' +
+        'impl=s&gdfp_req=1&env=vp&output=xml_vmap1&unviewed_position_start=1&' +
+        'cust_params=sample_ar%3Dpremidpostpod%26deployment%3Dgmf-js&cmsid=496&' +
+        'vid=short_onecue&correlator='
+      }, player.ima.start);
+
+      player.one('click', function () {
+        player.play();
+      });
+
+      player.ima.initializeAdDisplayContainer();
+      player.ima.requestAds();
+    }
+
   </script>
 </body>
 

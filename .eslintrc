@@ -11,11 +11,5 @@
   "plugins": [
     "standard",
     "node"
-  ],
-  "globals": {
-    "XMLHttpRequest": true,
-    "ActiveXObject": true,
-    "DateTime": true,
-    "videojs": true
-  }
+  ]
 }

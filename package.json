@@ -5,17 +5,17 @@
   "description": "Adapter for NPAW's youboralib",
   "scripts": {
     "build": "gulp build",
-    "postinstall": "npm run build",
-    "version": "npm run build && git add -A",
+    "prepublish": "npm run build",
+    "preversion": "npm run build",
     "postversion": "git push && git push --tags",
     "deploy": "rm -rf deploy && gulp deploy"
   },
   "dependencies": {
-    "youbora-plugins-core": "git+https://github.com/NPAW/plugins-core-js.git"
+    "youboralib": "git+https://github.com/NPAW/plugins-core-js.git"
   },
   "devDependencies": {
     "fs": "0.0.1-security",
-    "gulp-npawify": "^1.0.X"
+    "gulp-npawify": "1.1.x"
   },
   "repository": {
     "type": "git",
