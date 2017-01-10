@@ -45,12 +45,9 @@ gulp.task('deploy', function (done) {
   var manifest = path.join(__dirname, './manifest.json')
 
   if (fs.existsSync(sp)) {
-    var dir = path.join(__dirname, './deploy')
-    npawify.copyfiles([sp, manifest, dir + '/last'], true, function (err) {
-      if (err) done(err)
-      npawify.copyfiles([sp, manifest, dir + '/' + pkg.version], true, function (err) {
-        done(err)
-      })
+    var dir = path.join(__dirname, './deploy/' + pkg.version)
+    npawify.copyfiles([sp, manifest, dir], true, function (err) {
+      done(err)
     })
   }
 })
