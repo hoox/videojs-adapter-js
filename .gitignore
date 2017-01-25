@@ -15,6 +15,7 @@ coverage/
 docs/
 tmp/
 deploy/
+dist/
 
 #logs
 *.log

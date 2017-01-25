@@ -4,7 +4,8 @@
   "tech": "js",
   "author": "Jordi Aguilar",
   "version": "6.0.0-rc",
-  "built": "Tue Jan 10 2017",
+  "repo": "git+https://bitbucket.org/npaw/videojs5-adapter-js.git",
+  "built": "Wed Jan 25 2017",
   "features": {
     "buffer": "monitor",
     "seek": "native",
@@ -21,57 +22,37 @@
   "libVersion": "6.0.0-rc",
   "ads": [
     {
-      "type": "adapter",
-      "tech": "js",
-      "built": "Tue Jan 10 2017",
-      "features": {
-        "buffer": "monitor",
-        "seek": "monitor",
-        "getters": [
-          "getPlayhead"
-        ]
-      },
+      "buffer": "monitor",
+      "seek": "monitor",
+      "getters": [
+        "getPlayhead"
+      ],
       "filename": "brightcove.js"
     },
     {
-      "type": "adapter",
-      "tech": "js",
-      "built": "Tue Jan 10 2017",
-      "features": {
-        "buffer": "monitor",
-        "seek": "monitor",
-        "getters": []
-      },
+      "buffer": "monitor",
+      "seek": "monitor",
+      "getters": [],
       "filename": "generic.js"
     },
     {
-      "type": "adapter",
-      "tech": "js",
-      "built": "Tue Jan 10 2017",
-      "features": {
-        "buffer": "monitor",
-        "seek": "monitor",
-        "getters": [
-          "getPlayhead",
-          "getDuration",
-          "getTitle"
-        ]
-      },
+      "buffer": "monitor",
+      "seek": "monitor",
+      "getters": [
+        "getPlayhead",
+        "getDuration",
+        "getTitle"
+      ],
       "filename": "ima.js"
     },
     {
-      "type": "adapter",
-      "tech": "js",
-      "built": "Tue Jan 10 2017",
-      "features": {
-        "buffer": "monitor",
-        "seek": "monitor",
-        "getters": [
-          "getPlayhead",
-          "getDuration",
-          "getResource"
-        ]
-      },
+      "buffer": "monitor",
+      "seek": "monitor",
+      "getters": [
+        "getPlayhead",
+        "getDuration",
+        "getResource"
+      ],
       "filename": "onceux.js"
     }
   ]
