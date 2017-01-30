@@ -35,7 +35,7 @@ gulp.task('manifest', function () {
     author: pkg.author,
     version: pkg.version,
     repo: pkg.repository && pkg.repository.url ? pkg.repository.url : '',
-    built: new Date().toDateString(),
+    built: new Date().toJSON().slice(0, 10),
     features: npawify.analyze(fs.readFileSync(path.join(__dirname, 'src/adapter.js')))
   }
 
