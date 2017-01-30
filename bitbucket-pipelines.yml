@@ -15,7 +15,7 @@ pipelines:
           - mkdir -p ~/.ssh
           - echo $QA_KNOWN_HOSTS >> ~/.ssh/known_hosts
           - (umask 077; echo $QA_SSH_KEY | base64 --decode > ~/.ssh/id_rsa)
-          - scp -r deploy/last-build/* nicedeployer@qa-smartplugin.youbora.com:/home/nicedeployer/qa/js/
+          - scp -r deploy/last-build/* nicedeployer@qa-smartplugin.youbora.com:/home/nicedeployer/qa/catalog/v6/js/
           - fi
 
   tags:
@@ -29,7 +29,7 @@ pipelines:
             - mkdir -p ~/.ssh
             - echo $QA_KNOWN_HOSTS >> ~/.ssh/known_hosts
             - (umask 077; echo $QA_SSH_KEY | base64 --decode > ~/.ssh/id_rsa)
-            - scp -r deploy/version/* nicedeployer@qa-smartplugin.youbora.com:/home/nicedeployer/qa/js/
+            - scp -r deploy/version/* nicedeployer@qa-smartplugin.youbora.com:/home/nicedeployer/qa/catalog/v6/js/
             - fi
 
   custom: # Pipelines that are triggered manually
