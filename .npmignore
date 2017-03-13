@@ -10,7 +10,7 @@ ext/
 node_modules
 bower_components
 
-# temp and output folders
+# temp and output
 coverage/
 docs/
 tmp/
@@ -20,10 +20,13 @@ dist/
 #logs
 *.log
 
+#Configs
+jsconfig.json
+
 #npm ignore
 spec/
-samples/
 gulpfile.js
+.jsbeautifyrc
 .eslintrc
-.travis.yml
-jsconfig.json
+samples/
+bitbucket-pipelines.yml

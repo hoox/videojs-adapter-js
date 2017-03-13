@@ -2,16 +2,16 @@
 # Only use spaces to indent your .yml configuration.
 
 # You can specify a custom docker image from Docker Hub as your build environment.
-image: node:6
+image: node:7
 
 pipelines:
   default:
     - step:
         script: # Modify the commands below to build your repository.
-          - npm install
-          - npm test
+          - npm install --verbose
+          - npm test --verbose
           - if [ $? -eq 0 ]; then
-          - npm run deployable
+          - npm run deployable --verbose
           - mkdir -p ~/.ssh
           - echo $QA_KNOWN_HOSTS >> ~/.ssh/known_hosts
           - (umask 077; echo $QA_SSH_KEY | base64 --decode > ~/.ssh/id_rsa)
@@ -22,10 +22,10 @@ pipelines:
     '*':
       - step:
           script:
-            - npm install
-            - npm test
+            - npm install --verbose
+            - npm test --verbose
             - if [ $? -eq 0 ]; then
-            - npm run deployable
+            - npm run deployable --verbose
             - mkdir -p ~/.ssh
             - echo $QA_KNOWN_HOSTS >> ~/.ssh/known_hosts
             - (umask 077; echo $QA_SSH_KEY | base64 --decode > ~/.ssh/id_rsa)
@@ -36,10 +36,10 @@ pipelines:
     deploy-to-prod:
       - step:
           script:
-            - npm install
-            - npm test
+            - npm install --verbose
+            - npm test --verbose
             - if [ $? -eq 0 ]; then
-            - npm run deployable
+            - npm run deployable --verbose
             - apt-get update
             - apt-get -y install awscli
             - mkdir ~/.aws

@@ -4,18 +4,19 @@
   "main": "src/adapter.js",
   "description": "Adapter for NPAW's youboralib",
   "scripts": {
-    "build": "gulp build",
-    "deployable": "npm run build && rm -rf deploy && gulp deployable",
-    "prepublish": "npm run build",
+    "build": "npm run manifest && webpack -p",
+    "watch": "npm run manifest && webpack -p --progress --color --watch",
+    "deployable": "npm run build && youbora-util deployable",
+    "manifest": "youbora-util manifest",
     "preversion": "npm run build",
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "youboralib": "git+https://bitbucket.org/npaw/plugin-lib-js.git"
+    "youboralib": "git+https://bitbucket.org/npaw/lib-plugin-js.git"
   },
   "devDependencies": {
-    "fs": "0.0.1-security",
-    "gulp-npawify": "1.2.x"
+    "webpack": "^2.2.1",
+    "youboralib-util": "1.1.X"
   },
   "repository": {
     "type": "git",
