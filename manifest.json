@@ -4,7 +4,7 @@
   "tech": "js",
   "author": "Jordi Aguilar",
   "version": "6.0.0-rc",
-  "built": "2017-03-23",
+  "built": "2017-05-02",
   "repo": "https://bitbucket.org/npaw/videojs5-adapter-js.git",
   "libVersion": "git+https://bitbucket.org/npaw/lib-plugin-js.git",
   "features": {
