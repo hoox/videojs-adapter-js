@@ -3,10 +3,10 @@
   "type": "adapter",
   "tech": "js",
   "author": "Jordi Aguilar",
-  "version": "6.0.0-rc",
-  "built": "2017-05-29",
+  "version": "6.0.0",
+  "built": "2017-06-01",
   "repo": "https://bitbucket.org/npaw/videojs5-adapter-js.git",
-  "libVersion": "6.0.0",
+  "libVersion": "6.0.1",
   "features": {
     "buffer": "monitor",
     "seek": "native",

@@ -8,11 +8,10 @@
     "watch": "npm run manifest && webpack -p --progress --color --watch",
     "deployable": "npm run build && youbora-util deployable",
     "manifest": "youbora-util manifest",
-    "preversion": "npm run build",
-    "postversion": "git push && git push --tags"
+    "preversion": "npm run build"
   },
   "dependencies": {
-    "youboralib": "6.0.0"
+    "youboralib": "6.0.1"
   },
   "devDependencies": {
     "webpack": "^2.2.1",
