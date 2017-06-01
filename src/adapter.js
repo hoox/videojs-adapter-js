@@ -4,7 +4,7 @@ var manifest = require('../manifest.json')
 
 youbora.adapters.Videojs5 = youbora.Adapter.extend({
   getVersion: function () {
-    return manifest.version + '-videojs5'
+    return manifest.version + '-' + manifest.name + '-' + manifest.tech
   },
 
   getPlayhead: function () {
