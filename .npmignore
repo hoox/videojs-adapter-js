@@ -22,7 +22,6 @@ dist/
 
 #Configs
 jsconfig.json
-manifest.json
 
 #npm ignore
 spec/
