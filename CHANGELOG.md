@@ -1,4 +1,4 @@
 ## [Unreleased]
 
 ### Smart Plugin
-- Packaged with `lib 6.0.1`
+- Packaged with `lib 6.0.2`
