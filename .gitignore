@@ -19,6 +19,7 @@ dist/
 
 #Configs
 jsconfig.json
+manifest.json
 
 #logs
 *.log
