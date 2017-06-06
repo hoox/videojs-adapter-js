@@ -9,7 +9,7 @@
     "deployable": "npm run build && youbora-util deployable",
     "manifest": "youbora-util manifest",
     "preversion": "npm run build",
-    "clean": "rm -rf dist manifest.json"
+    "clean": "rm -rf dist deploy manifest.json"
   },
   "dependencies": {
     "youboralib": "6.0.3"
