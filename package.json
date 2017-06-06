@@ -11,7 +11,7 @@
     "preversion": "npm run build"
   },
   "dependencies": {
-    "youboralib": "6.0.1"
+    "youboralib": "https://bitbucket.org/npaw/lib-plugin-js.git"
   },
   "devDependencies": {
     "webpack": "^2.2.1",
