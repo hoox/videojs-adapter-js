@@ -77,6 +77,13 @@ var OnceUXAdsAdapter = youbora.Adapter.extend({
     this.player.off('onceux-linearad-complete', this.completeListener)
     this.player.off('onceux-linearad-skipped', this.skippedListener)
   }
-})
+},
+  // Static Members
+  {
+    isUsed: function (plugin) {
+      return plugin.player.onceux
+    }
+  }
+)
 
 module.exports = OnceUXAdsAdapter

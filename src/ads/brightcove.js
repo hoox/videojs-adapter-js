@@ -76,6 +76,13 @@ var BrightcoveAdsAdapter = youbora.Adapter.extend({
     this.player.off('ima3-complete', this.imaCompleteListener)
     this.player.off('ima3-skipped', this.imaSkippedListener)
   }
-})
+},
+  // Static Members
+  {
+    isUsed: function (plugin) {
+      return plugin.player.ima || plugin.player.ima3
+    }
+  }
+)
 
 module.exports = BrightcoveAdsAdapter

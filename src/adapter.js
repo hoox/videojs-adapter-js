@@ -2,7 +2,7 @@
 var youbora = require('youboralib')
 var manifest = require('../manifest.json')
 
-youbora.adapters.Videojs5 = youbora.Adapter.extend({
+var Videojs5Adapter = youbora.Adapter.extend({
   getVersion: function () {
     return manifest.version + '-' + manifest.name + '-' + manifest.tech
   },
@@ -18,78 +18,48 @@ youbora.adapters.Videojs5 = youbora.Adapter.extend({
   },
 
   getDuration: function () {
-    if (this.player.mediainfo && typeof this.player.mediainfo.duration !== 'undefined') {
-      return this.player.mediainfo.duration // brightcove
-    } else {
-      return this.player.duration()
-    }
+    return this.player.duration()
   },
 
   getResource: function () {
-    if (this.getTech().hls_) {
-      return this.getTech().hls_.url // hlsjs
+    if (Videojs5Adapter.HlsJsTech.isUsed(this)) {
+      return Videojs5Adapter.HlsJsTech.getResource(this)
+    } else if (Videojs5Adapter.ShakaTech.isUsed(this)) {
+      return Videojs5Adapter.ShakaTech.getResource(this)
     } else {
       return this.player.currentSrc()
     }
   },
 
-  getTitle: function () {
-    if (this.player.mediainfo && this.player.mediainfo.name) {
-      return this.player.mediainfo.name // brightcove
-    }
-  },
-
-  getThroughput: function () {
-    if (this.getTech().hls && this.getTech().hls.bandwidth) {
-      return this.getTech().hls.bandwidth // hlsjs
-    }
-  },
-
   getBitrate: function () {
-    if (this.getTech().hls) { // contrib hls
-      var media = this.getTech().hls.playlists.media()
-      if (media && media.attributes) return media.attributes.BANDWIDTH
-    } else if (this.getTech().hls_) { // hlsjs
-      var level = this.getTech().hls_.levels[this.getTech().hls_.currentLevel]
-      if (level && level.bitrate) return level.bitrate
+    if (Videojs5Adapter.ContribHlsTech.isUsed(this)) {
+      return Videojs5Adapter.ContribHlsTech.getBitrate(this)
+    } else if (Videojs5Adapter.HlsJsTech.isUsed(this)) {
+      return Videojs5Adapter.HlsJsTech.getBitrate(this)
+    } else if (Videojs5Adapter.ShakaTech.isUsed(this)) {
+      return Videojs5Adapter.ShakaTech.getBitrate(this)
     }
   },
 
   getRendition: function () {
-    if (this.getTech().hls) { // contrib hls
-      var media = this.getTech().hls.playlists.media()
-      if (media && media.attributes) {
-        var att = media.attributes
-        if (att.NAME) {
-          return att.NAME
-        } else if (att.RESOLUTION) {
-          return youbora.Util.buildRenditionString(
-            att.RESOLUTION.width,
-            att.RESOLUTION.height,
-            att.BANDWIDTH
-          )
-        } else {
-          return youbora.Util.buildRenditionString(att.BANDWIDTH)
-        }
-      }
-    } else if (this.getTech().hls_) { // hlsjs
-      var level = this.getTech().hls_.levels[this.getTech().hls_.currentLevel]
-      if (level && level.name) {
-        return level.name
-      } else {
-        return youbora.Util.buildRenditionString(level.width, level.height, level.bitrate)
-      }
+    if (Videojs5Adapter.ContribHlsTech.isUsed(this)) {
+      return Videojs5Adapter.ContribHlsTech.getRendition(this)
+    } else if (Videojs5Adapter.HlsJsTech.isUsed(this)) {
+      return Videojs5Adapter.HlsJsTech.getRendition(this)
+    } else if (Videojs5Adapter.ShakaTech.isUsed(this)) {
+      return Videojs5Adapter.ShakaTech.getRendition(this)
     }
   },
 
   getPlayerName: function () {
     var name = 'videojs5'
-    if (this.getTech().hls) name += '-hls' // hls-contrib
-    if (this.getTech().hls_) name += '-hlsjs' // hlsjs
-    if (this.player.mediainfo) name += '-bcove' // brightcove
-    if (this.player.ima || this.player.ima3) name += '-ima' // ima3
+    if (Videojs5Adapter.ContribHlsTech.isUsed(this)) name += '-hls' // hls-contrib
+    if (Videojs5Adapter.HlsJsTech.isUsed(this)) name += '-hlsjs' // hlsjs
+    if (Videojs5Adapter.ShakaTech.isUsed(this)) name += '-shaka' // shaka
+    if (Videojs5Adapter.ImaAdsAdapter.isUsed(this)) name += '-ima' // ima3
+    if (Videojs5Adapter.OnceUXAdsAdapter.isUsed(this)) this.pluginName += '-oux' // OnceUX
     if (this.player.FreeWheelPlugin) name += '-fw' // freewheel
-    if (this.player.onceux) this.pluginName += '-oux' // OnceUX
+    if (this.player.mediainfo) name += '-bcove' // brightcove
     return name
   },
 
@@ -212,16 +182,12 @@ youbora.adapters.Videojs5 = youbora.Adapter.extend({
   loadAdsAdapter: function () {
     if (this.plugin.getAdsAdapter() === null) {
       var adapter
-      if (typeof google !== 'undefined') {
-        if (this.player.mediainfo && this.player.ads && this.player.ima3) { // Brightcove+IMA
-          adapter = new youbora.adapters.Videojs5.BrightcoveAdsAdapter(this.player)
-        } else if (this.player.ima) { // IMA Standalone
-          adapter = new youbora.adapters.Videojs5.ImaAdsAdapter(this.player)
-        }
-      } else if (this.player.onceux) { // OnceUX
-        adapter = new youbora.adapters.Videojs5.OnceUXAdsAdapter(this.player)
+      if (typeof google !== 'undefined' && Videojs5Adapter.ImaAdsAdapter.isUsed(this)) { // IMA
+        adapter = new Videojs5Adapter.ImaAdsAdapter(this.player)
+      } else if (Videojs5Adapter.OnceUXAdsAdapter.isUsed(this)) { // OnceUX
+        adapter = new Videojs5Adapter.OnceUXAdsAdapter(this.player)
       } else { // Generic
-        adapter = new youbora.adapters.Videojs5.GenericAdsAdapter(this.player)
+        adapter = new Videojs5Adapter.GenericAdsAdapter(this.player)
       }
 
       this.plugin.setAdsAdapter(adapter)
@@ -230,11 +196,18 @@ youbora.adapters.Videojs5 = youbora.Adapter.extend({
 },
   // Static members
   {
+    // Ads Adaptrs
     GenericAdsAdapter: require('./ads/generic'),
     ImaAdsAdapter: require('./ads/ima'),
-    BrightcoveAdsAdapter: require('./ads/brightcove'),
-    OnceUXAdsAdapter: require('./ads/onceux')
+    OnceUXAdsAdapter: require('./ads/onceux'),
+
+    // Techs
+    ContribHlsTech: require('./tech/contrib-hls'),
+    HlsJsTech: require('./tech/hls-js'),
+    ShakaTech: require('./tech/shaka')
   }
 )
+
+youbora.adapters.Videojs5 = Videojs5Adapter
 
 module.exports = youbora.adapters.Videojs5

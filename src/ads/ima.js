@@ -3,7 +3,7 @@
 var youbora = require('youboralib')
 var manifest = require('../../manifest.json')
 
-var BrightcoveAdsAdapter = youbora.Adapter.extend({
+var ImaAdsAdapter = youbora.Adapter.extend({
   getVersion: function () {
     return manifest.version + '-videojs-ima-ads'
   },
@@ -96,6 +96,13 @@ var BrightcoveAdsAdapter = youbora.Adapter.extend({
     // Disable playhead monitoring
     this.monitor.stop()
   }
-})
+},
+  // Static Members
+  {
+    isUsed: function (plugin) {
+      return plugin.player.ima
+    }
+  }
+)
 
-module.exports = BrightcoveAdsAdapter
+module.exports = ImaAdsAdapter
