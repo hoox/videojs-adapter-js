@@ -15,6 +15,10 @@ var ImaAdsAdapter = youbora.Adapter.extend({
     return this.duration
   },
 
+  getResource: function() {
+    return this.player.ima.getAdsManager().getCurrentAd().getMediaUrl()
+  },
+
   getTitle: function () {
     return this.player.ima.getAdsManager().getCurrentAd().getTitle()
   },
@@ -31,37 +35,46 @@ var ImaAdsAdapter = youbora.Adapter.extend({
     // Enable playhead monitor
     this.monitorPlayhead(true, false)
 
+    // Shortcut events
+    var event = google.ima.AdEvent.Type
+
     // Console all events if logLevel=DEBUG
     youbora.Util.logAllEvents(this.player.ima.addEventListener, [
       null,
-      google.ima.AdEvent.Type.ALL_ADS_COMPLETED,
-      google.ima.AdEvent.Type.LINEAR_CHANGED,
-      google.ima.AdEvent.Type.USER_CLOSE,
-      google.ima.AdEvent.Type.COMPLETE,
-      google.ima.AdEvent.Type.IMPRESSION,
-      google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED,
-      google.ima.AdEvent.Type.CONTENT_RESUME_REQUESTED,
-      google.ima.AdEvent.Type.SKIPPED,
-      google.ima.AdEvent.Type.SKIPPABLE_STATE_CHANGED,
-      google.ima.AdEvent.Type.LOADED,
-      google.ima.AdEvent.Type.PAUSED,
-      google.ima.AdEvent.Type.RESUMED,
-      google.ima.AdEvent.Type.STARTED,
-      google.ima.AdEvent.Type.AD_CAN_PLAY,
-      google.ima.AdEvent.Type.AD_METADATA,
-      google.ima.AdEvent.Type.EXPANDED_CHANGED,
-      google.ima.AdEvent.Type.AD_BREAK_READY,
-      google.ima.AdEvent.Type.LOG
+      event.ALL_ADS_COMPLETED,
+      event.LINEAR_CHANGED,
+      event.USER_CLOSE,
+      event.COMPLETE,
+      event.IMPRESSION,
+      event.CONTENT_PAUSE_REQUESTED,
+      event.CONTENT_RESUME_REQUESTED,
+      event.SKIPPED,
+      event.SKIPPABLE_STATE_CHANGED,
+      event.LOADED,
+      event.PAUSED,
+      event.RESUMED,
+      event.STARTED,
+      event.AD_CAN_PLAY,
+      event.AD_METADATA,
+      event.EXPANDED_CHANGED,
+      event.AD_BREAK_READY,
+      event.LOG,
+      event.CLICK,
+      google.ima.AdErrorEvent.Type.AD_ERROR
     ])
 
     // Register listeners
-    this.player.ima.addEventListener(google.ima.AdEvent.Type.LOADED, this.loadedListener.bind(this))
-    this.player.ima.addEventListener(google.ima.AdEvent.Type.CONTENT_PAUSE_REQUESTED, this.contentPauseRequestedListener.bind(this))
-    this.player.ima.addEventListener(google.ima.AdEvent.Type.STARTED, this.startedListener.bind(this))
-    this.player.ima.addEventListener(google.ima.AdEvent.Type.PAUSED, this.pausedListener.bind(this))
-    this.player.ima.addEventListener(google.ima.AdEvent.Type.RESUMED, this.resumedListener.bind(this))
-    this.player.ima.addEventListener(google.ima.AdEvent.Type.COMPLETE, this.completeListener.bind(this))
-    this.player.ima.addEventListener(google.ima.AdEvent.Type.SKIPPED, this.skippedListener.bind(this))
+    this.player.ima.addEventListener(event.LOADED, this.loadedListener.bind(this))
+    this.player.ima.addEventListener(event.CONTENT_PAUSE_REQUESTED,
+      this.contentPauseRequestedListener.bind(this))
+    this.player.ima.addEventListener(event.STARTED, this.startedListener.bind(this))
+    this.player.ima.addEventListener(event.PAUSED, this.pausedListener.bind(this))
+    this.player.ima.addEventListener(event.RESUMED, this.resumedListener.bind(this))
+    this.player.ima.addEventListener(event.COMPLETE, this.completeListener.bind(this))
+    this.player.ima.addEventListener(event.SKIPPED, this.skippedListener.bind(this))
+    this.player.ima.addEventListener(event.CLICK, this.clickListener.bind(this))
+    this.player.ima.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR,
+      this.errorListener.bind(this))
   },
 
   loadedListener: function (e) {
@@ -92,9 +105,31 @@ var ImaAdsAdapter = youbora.Adapter.extend({
     this.fireStop({ skipped: true })
   },
 
+  errorListener: function (e) {
+    var error = e.getError()
+    this.fireError(error.getCode(), error.getMessage())
+  },
+
+  clickListener: function (e) {
+    this.fireClick()
+  },
+
   unregisterListeners: function () {
     // Disable playhead monitoring
     this.monitor.stop()
+
+    // Remove listeners
+    this.player.ima.removeEventListener(event.LOADED, this.loadedListener)
+    this.player.ima.removeEventListener(event.CONTENT_PAUSE_REQUESTED,
+      this.contentPauseRequestedListener)
+    this.player.ima.removeEventListener(event.STARTED, this.startedListener)
+    this.player.ima.removeEventListener(event.PAUSED, this.pausedListener)
+    this.player.ima.removeEventListener(event.RESUMED, this.resumedListener)
+    this.player.ima.removeEventListener(event.COMPLETE, this.completeListener)
+    this.player.ima.removeEventListener(event.SKIPPED, this.skippedListener)
+    this.player.ima.removeEventListener(event.CLICK, this.clickListener)
+    this.player.ima.removeEventListener(google.ima.AdErrorEvent.Type.AD_ERROR,
+      this.errorListener)
   }
 },
   // Static Members

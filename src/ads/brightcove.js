@@ -42,6 +42,8 @@ var BrightcoveAdsAdapter = youbora.Adapter.extend({
     this.player.on('ima3-resumed', this.imaResumedListener.bind(this))
     this.player.on('ima3-complete', this.imaCompleteListener.bind(this))
     this.player.on('ima3-skipped', this.imaSkippedListener.bind(this))
+    this.player.on('adserror', this.errorListener.bind(this))
+    this.player.on('ads-click', this.clickListener.bind(this))
   },
 
   imaStartedListener: function (e) {
@@ -65,6 +67,14 @@ var BrightcoveAdsAdapter = youbora.Adapter.extend({
     this.fireStop({ skipped: true })
   },
 
+  errorListener: function (e) {
+    this.fireError("Ad error")
+  },
+
+  clickListener: function (e) {
+    this.fireClick()
+  },
+
   unregisterListeners: function () {
     // Disable playhead monitoring
     this.monitor.stop()
@@ -75,6 +85,8 @@ var BrightcoveAdsAdapter = youbora.Adapter.extend({
     this.player.off('ima3-resumed', this.imaResumedListener)
     this.player.off('ima3-complete', this.imaCompleteListener)
     this.player.off('ima3-skipped', this.imaSkippedListener)
+    this.player.off('adserror', this.errorListener)
+    this.player.off('ads-click', this.clickListener)
   }
 },
   // Static Members

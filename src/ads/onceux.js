@@ -31,7 +31,9 @@ var OnceUXAdsAdapter = youbora.Adapter.extend({
       'onceux-linearad-skipped',
       'onceux-linearad-pause',
       'onceux-linearad-resume',
-      'onceux-companionad-creativeView'
+      'onceux-companionad-creativeView',
+      'adserror',
+      'ads-click'
     ])
 
     // Enable playhead monitor
@@ -43,6 +45,8 @@ var OnceUXAdsAdapter = youbora.Adapter.extend({
     this.player.on('onceux-linearad-resume', this.resumedListener.bind(this))
     this.player.on('onceux-linearad-complete', this.completeListener.bind(this))
     this.player.on('onceux-linearad-skipped', this.skippedListener.bind(this))
+    this.player.on('adserror', this.errorListener.bind(this))
+    this.player.on('ads-click', this.clickListener.bind(this))
   },
 
   startedListener: function (e) {
@@ -66,6 +70,14 @@ var OnceUXAdsAdapter = youbora.Adapter.extend({
     this.fireStop({ skipped: true })
   },
 
+  errorListener: function (e) {
+    this.fireError("OnceUX ad error")
+  },
+
+  clickListener: function (e) {
+    this.fireClick()
+  },
+
   unregisterListeners: function () {
     // Disable playhead monitoring
     this.monitor.stop()
@@ -76,6 +88,8 @@ var OnceUXAdsAdapter = youbora.Adapter.extend({
     this.player.off('onceux-linearad-resume', this.resumedListener)
     this.player.off('onceux-linearad-complete', this.completeListener)
     this.player.off('onceux-linearad-skipped', this.skippedListener)
+    this.player.off('adserror', this.errorListener)
+    this.player.off('ads-click', this.clickListener)
   }
 },
   // Static Members
