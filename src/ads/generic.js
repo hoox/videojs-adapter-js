@@ -29,7 +29,7 @@ var GenericAdsAdapter = youbora.Adapter.extend({
   },
 
   errorListener: function (e) {
-    this.fireError("Ad error")
+    this.fireError('Ad error')
   },
 
   clickListener: function (e) {

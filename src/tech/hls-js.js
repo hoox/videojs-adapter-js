@@ -17,10 +17,12 @@ module.exports = {
 
   getRendition: function (adapter) {
     var level = adapter.getTech().hls_.levels[adapter.getTech().hls_.currentLevel]
-    if (level.name) {
-      return level.name
-    } else {
-      return Util.buildRenditionString(level.width, level.height, level.bitrate)
+    if (level) {
+      if (level.name) {
+        return level.name
+      } else {
+        return Util.buildRenditionString(level.width, level.height, level.bitrate)
+      }
     }
   }
 }

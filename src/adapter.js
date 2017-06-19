@@ -8,7 +8,12 @@ var Videojs5Adapter = youbora.Adapter.extend({
   },
 
   getPlayhead: function () {
-    if (this.player.ads && this.player.ads.snapshot && this.player.ads.snapshot.currentTime) {
+    if (
+      this.player.ads &&
+      this.player.ads.state === 'ads-playback' &&
+      this.player.ads.snapshot &&
+      this.player.ads.snapshot.currentTime
+    ) {
       return this.player.ads.snapshot.currentTime
     } else if (this.player.absoluteTime) {
       return this.player.absoluteTime()
@@ -146,7 +151,7 @@ var Videojs5Adapter = youbora.Adapter.extend({
   },
 
   seekingListener: function (e) {
-    this.fireSeekBegin()
+    this.fireSeekBegin({}, false)
   },
 
   seekedListener: function (e) {

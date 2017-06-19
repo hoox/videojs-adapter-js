@@ -15,9 +15,10 @@ var ImaAdsAdapter = youbora.Adapter.extend({
     return this.duration
   },
 
-  getResource: function() {
-    return this.player.ima.getAdsManager().getCurrentAd().getMediaUrl()
-  },
+  // NOT AVAILABLE AT adStart
+  // getResource: function () {
+  //   return this.player.ima.getAdsManager().getCurrentAd().getMediaUrl()
+  // },
 
   getTitle: function () {
     return this.player.ima.getAdsManager().getCurrentAd().getTitle()
