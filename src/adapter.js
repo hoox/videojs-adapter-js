@@ -64,7 +64,6 @@ var Videojs5Adapter = youbora.Adapter.extend({
     if (Videojs5Adapter.ImaAdsAdapter.isUsed(this)) name += '-ima' // ima3
     if (Videojs5Adapter.OnceUXAdsAdapter.isUsed(this)) this.pluginName += '-oux' // OnceUX
     if (this.player.FreeWheelPlugin) name += '-fw' // freewheel
-    if (this.player.mediainfo) name += '-bcove' // brightcove
     return name
   },
 
