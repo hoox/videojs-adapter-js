@@ -76,6 +76,7 @@ var ImaAdsAdapter = youbora.Adapter.extend({
     this.player.ima.addEventListener(event.CLICK, this.clickListener.bind(this))
     this.player.ima.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR,
       this.errorListener.bind(this))
+    this.player.on('adend', this.adEndedListener.bind(this))
   },
 
   loadedListener: function (e) {
@@ -104,6 +105,10 @@ var ImaAdsAdapter = youbora.Adapter.extend({
 
   skippedListener: function (e) {
     this.fireStop({ skipped: true })
+  },
+
+  adEndedListener: function (e) {
+    this.fireStop()
   },
 
   errorListener: function (e) {
