@@ -51,9 +51,6 @@ pipelines:
             - aws s3 cp deploy/prod/ s3://youbora-smartplugins/v6/js/ --recursive --acl=public-read
             # codecov
             - bash <(curl -s https://codecov.io/bash)
-            # deploy doc
-            - npm run doc --verbose
-            - scp -r deploy/doc-public/* nicedeployer@developer.nicepeopleatwork.com:/var/www/developer_nicepeople_wp/apidocs/js6
             # deploy PROD file to qa
             - scp -r deploy/prodfile/* nicedeployer@qa-smartplugin.youbora.com:/home/nicedeployer/qa/catalog/v6/js
             - fi
