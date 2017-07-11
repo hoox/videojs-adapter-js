@@ -62,5 +62,6 @@ pipelines:
             - if [ $? -eq 0 ]; then
             # npm publish
             - echo $NPM_TOKEN >> ~/.npmrc
+            - npm run manifest --verbose
             - npm publish --verbose -f
             - fi
