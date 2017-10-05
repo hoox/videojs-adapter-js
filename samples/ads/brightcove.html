@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<head>
+</head>
+
+<body>
+    <video data-video-id="4712872493001" data-account="2564185535001" data-player="VkvuUGb3x" data-embed="default" class="video-js" id="video1" controls></video>
+    <script src="//players.brightcove.net/2564185535001/VkvuUGb3x_default/index.min.js"></script>
+    <!---->
+    <!-- YouboraLib -->
+    <script src="../../dist/sp.min.js"></script>
+    <!---->
+    <script>
+    var player = videojs('video1');
+
+// Turn on logs
+youbora.Log.logLevel = youbora.Log.Level.DEBUG
+
+    // Init youbora
+    if (typeof youbora.adapters.Videojs5 != "undefined") {
+      window.plugin = new youbora.Plugin({
+        'accountCode': 'nicedev'
+      })
+
+      plugin.setAdapter(new youbora.adapters.Videojs5(player))
+    }
+    </script>
+    <script src="/src/v5/util/inspector/inspector.js"></script>
+</body>

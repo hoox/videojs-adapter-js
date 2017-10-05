@@ -186,14 +186,15 @@ var Videojs5Adapter = youbora.Adapter.extend({
   loadAdsAdapter: function () {
     if (this.plugin.getAdsAdapter() === null) {
       var adapter
-      if (typeof google !== 'undefined' && Videojs5Adapter.ImaAdsAdapter.isUsed(this)) { // IMA
-        adapter = new Videojs5Adapter.ImaAdsAdapter(this.player)
-      } else if (Videojs5Adapter.OnceUXAdsAdapter.isUsed(this)) { // OnceUX
-        adapter = new Videojs5Adapter.OnceUXAdsAdapter(this.player)
+      if (typeof google !== 'undefined' && Videojs5Adapter.ImaAdsAdapter.isUsed(this)) {
+        adapter = new Videojs5Adapter.ImaAdsAdapter(this.player) // IMA
+      } else if (Videojs5Adapter.OnceUXAdsAdapter.isUsed(this)) {
+        adapter = new Videojs5Adapter.OnceUXAdsAdapter(this.player) // OnceUX
+      } else if (this.player.ads) {
+        adapter = new Videojs5Adapter.FreewheelAdsAdapter(this.player) // Freewheel
       } else { // Generic
-        adapter = new Videojs5Adapter.GenericAdsAdapter(this.player)
+        adapter = new Videojs5Adapter.GenericAdsAdapter(this.player) // Generic
       }
-
       this.plugin.setAdsAdapter(adapter)
     }
   }
@@ -202,6 +203,7 @@ var Videojs5Adapter = youbora.Adapter.extend({
   {
     // Ads Adaptrs
     GenericAdsAdapter: require('./ads/generic'),
+    FreewheelAdsAdapter: require('./ads/freewheel'),
     ImaAdsAdapter: require('./ads/ima'),
     OnceUXAdsAdapter: require('./ads/onceux'),
 
