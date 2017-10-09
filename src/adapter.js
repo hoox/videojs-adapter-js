@@ -138,15 +138,26 @@ var Videojs5Adapter = youbora.Adapter.extend({
   },
 
   abortListener: function (e) {
-    this.fireStop()
+    this.conditionalStop(e)
   },
 
   endedListener: function (e) {
-    this.fireStop()
+    this.conditionalStop(e)
   },
 
   disposeListener: function (e) {
-    this.fireStop()
+    this.conditionalStop(e)
+  },
+
+  conditionalStop: function (e) {
+    if (this.plugin._adsAdapter && this.plugin._adsAdapter.flags.isStarted &&
+      typeof google !== 'undefined') { // using ima
+      if (!navigator.userAgent.match(/iPhone|iPad|iPod/i)) { // !mobile or tablet ios
+        this.fireStop();
+      }
+    } else { // no ima
+      this.fireStop();
+    }
   },
 
   seekingListener: function (e) {
