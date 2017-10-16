@@ -150,13 +150,12 @@ var Videojs5Adapter = youbora.Adapter.extend({
   },
 
   conditionalStop: function (e) {
-    if (this.plugin._adsAdapter && this.plugin._adsAdapter.flags.isStarted &&
-      typeof google !== 'undefined') { // using ima
-      if (!navigator.userAgent.match(/iPhone|iPad|iPod/i)) { // !mobile or tablet ios
-        this.fireStop();
+    if (!navigator.userAgent.match(/iPhone|iPad|iPod/i)) { // !mobile or tablet ios
+      this.fireStop()
+    } else { // iphone
+      if (!this.plugin._adsAdapter || typeof google === 'undefined') { // not using ima
+        this.fireStop()
       }
-    } else { // no ima
-      this.fireStop();
     }
   },
 

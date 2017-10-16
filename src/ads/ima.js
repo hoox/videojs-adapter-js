@@ -32,6 +32,15 @@ var ImaAdsAdapter = youbora.Adapter.extend({
     return 'IMA' + google.ima.VERSION + '; contrib-ads ' + this.player.ads.VERSION
   },
 
+  getPosition: function () {
+    if (this.plugin._adapter.flags.isEnded) {
+      return 'post'
+    } else if (this.plugin._adapter.flags.isJoined) {
+      return 'mid'
+    }
+    return 'pre'
+  },
+
   registerListeners: function () {
     // Enable playhead monitor
     this.monitorPlayhead(true, false)
