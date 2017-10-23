@@ -1,3 +1,9 @@
+## [6.1.0] - 2017-10-23
+### Added
+- Packaged with `lib 6.1.0`
+### Fix
+- Fix rendition calculation when using shaka
+
 ## [6.0.5] - 2017-10-16
 ### Added
 - Packaged with `lib 6.0.10`

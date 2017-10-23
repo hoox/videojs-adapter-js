@@ -22,6 +22,9 @@ module.exports = {
         return Util.buildRenditionString(track.width, track.height, track.bandwidth)
       }
     }
-    return adapter.getTech().shakaPlayer.getStats().estimatedBandwidth
+    var width = adapter.getTech().shakaPlayer.getStats().width
+    var heigth = adapter.getTech().shakaPlayer.getStats().height
+    var bitrate = adapter.getTech().shakaPlayer.getStats().streamBandwidth
+    return Util.buildRenditionString(width, height, bitrate)
   }
 }
