@@ -1,3 +1,7 @@
+## [6.1.1] - 2017-10-25
+### Added
+- Packaged with `lib 6.1.1`
+
 ## [6.1.0] - 2017-10-23
 ### Added
 - Packaged with `lib 6.1.0`
