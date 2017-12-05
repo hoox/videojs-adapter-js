@@ -1,3 +1,8 @@
+## [6.2.0-beta] - 2017-12-05
+### Added
+- Packaged with `lib 6.2.0-beta`
+- Added samples for different cases of background detection settings
+
 ## [6.1.2] - 2017-10-26
 ### Added
 - Packaged with `lib 6.1.2`

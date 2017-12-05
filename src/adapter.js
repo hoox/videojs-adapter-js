@@ -150,7 +150,7 @@ var Videojs5Adapter = youbora.Adapter.extend({
   },
 
   conditionalStop: function (e) {
-    if (!navigator.userAgent.match(/iPhone|iPad|iPod/i)) { // !mobile or tablet ios
+    if (!this.plugin.deviceDetector.isIphone()) {
       this.fireStop()
     } else { // iphone
       if (!this.plugin._adsAdapter || typeof google === 'undefined') { // not using ima
