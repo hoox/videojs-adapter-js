@@ -150,7 +150,7 @@ var Videojs5Adapter = youbora.Adapter.extend({
   },
 
   conditionalStop: function (e) {
-    if (!this.plugin.deviceDetector.isIphone()) {
+    if (!navigator.userAgent.match(/iPhone|iPad|iPod/i)) { // !mobile or tablet ios
       this.fireStop()
     } else { // iphone
       if (!this.plugin._adsAdapter || typeof google === 'undefined') { // not using ima
@@ -171,6 +171,9 @@ var Videojs5Adapter = youbora.Adapter.extend({
   errorListener: function (e) {
     if (this.player.error && this.player.error()) {
       this.fireError(this.player.error().code, this.player.error().message)
+    }
+    if (Videojs5Adapter.ContribHlsTech.isUsed(this) && this.player.error().code === 2) {
+      this.fireStop() // Fatal error
     }
   },
 

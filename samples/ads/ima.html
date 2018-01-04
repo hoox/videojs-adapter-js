@@ -41,9 +41,9 @@
     // Init youbora
     if (typeof youbora.adapters.Videojs5 != "undefined") {
       window.plugin = new youbora.Plugin({
-        'accountCode': 'powerqa',
+        'accountCode': 'powerdev',
         'ad.ignore': false,
-        'ad.afterStop': -1,
+        'ad.afterStop': 1,
         // 'username': 'dev',
         // 'parse.hls': true,
         // 'parse.cdnNode': true,
@@ -64,9 +64,9 @@
         // 'content.metadata': {
         //   custom_info: 'info'
         // },
-        // 'ad.metadata': {
-        //   custom_info: 'info'
-        // },
+         'ad.metadata': {
+           campaign: 'funciona'
+         },
         // 'extraparam.1': 'myExtraParam1',
         // 'extraparam.2': 'myExtraParam2'
       })

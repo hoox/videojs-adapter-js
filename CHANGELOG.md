@@ -1,3 +1,9 @@
+## [6.1.4] - 2018-01-04
+### Added
+- Packaged with `lib 6.1.8`
+- Reverted 6.2.0 beta changes
+- Fatal error detection for HLS content.
+
 ## [6.2.0-beta] - 2017-12-05
 ### Added
 - Packaged with `lib 6.2.0-beta`
