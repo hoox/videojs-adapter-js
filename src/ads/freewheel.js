@@ -7,6 +7,8 @@ var FreewheelAdsAdapter = youbora.Adapter.extend({
       return "bcove-ima " + this.player.FreeWheelPlugin.version + " / IMA" + google.ima.VERSION
     } else if (this.player.FreeWheelPlugin.getVersion) {
       return "bcove-fw " + this.player.FreeWheelPlugin.getVersion()
+    } else if (this.player.FreeWheelPlugin.VERSION) {
+      return "bcove-ssai " + this.player.FreeWheelPlugin.VERSION
     } else {
       return "UNKNOWN"
     }
