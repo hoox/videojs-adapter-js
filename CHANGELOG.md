@@ -1,3 +1,7 @@
+## [6.1.5] - 2018-01-11
+### Fix
+- Controlled an error with hls content without levels or invalid currentLevel for rendition and bitrate
+
 ## [6.1.4] - 2018-01-04
 ### Added
 - Packaged with `lib 6.1.8`
