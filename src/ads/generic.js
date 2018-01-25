@@ -8,11 +8,16 @@ var GenericAdsAdapter = youbora.Adapter.extend({
 
   registerListeners: function () {
     // Register listeners
-    this.player.on('adstart', this.adStartListener.bind(this))
-    this.player.on('adend', this.adEndListener.bind(this))
-    this.player.on('adskip', this.adSkipListener.bind(this))
-    this.player.on('adserror', this.errorListener.bind(this))
-    this.player.on('ads-click', this.clickListener.bind(this))
+    this.references = []
+    this.references['adstart'] = this.adStartListener.bind(this)
+    this.references['adend'] = this.adEndListener.bind(this)
+    this.references['adskip'] = this.adSkipListener.bind(this)
+    this.references['adserror'] = this.errorListener.bind(this)
+    this.references['ads-click'] = this.clickListener.bind(this)
+
+    for (var key in this.references) {
+      this.player.on(key, this.references[key])
+    }
   },
 
   adStartListener: function (e) {
@@ -38,11 +43,12 @@ var GenericAdsAdapter = youbora.Adapter.extend({
 
   unregisterListeners: function () {
     // unregister listeners
-    this.player.off('adstart', this.adStartListener)
-    this.player.off('adend', this.adEndListener)
-    this.player.off('adskip', this.adSkipListener)
-    this.player.off('adserror', this.errorListener)
-    this.player.off('ads-click', this.clickListener)
+    if (this.player && this.references) {
+      for (var key in this.references) {
+        this.player.off(key, this.references[key])
+      }
+      this.references = []
+    }
   }
 })
 

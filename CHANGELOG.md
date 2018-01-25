@@ -1,3 +1,7 @@
+## [6.1.6] - 2018-01-25
+### Fix
+- Fixed player access error when setting new adapter (references for unregisterListeners)
+
 ## [6.1.5] - 2018-01-11
 ### Fix
 - Controlled an error with hls content without levels or invalid currentLevel for rendition and bitrate

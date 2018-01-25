@@ -74,17 +74,23 @@ var ImaAdsAdapter = youbora.Adapter.extend({
     ])
 
     // Register listeners
-    this.player.ima.addEventListener(event.LOADED, this.loadedListener.bind(this))
-    this.player.ima.addEventListener(event.CONTENT_PAUSE_REQUESTED,
-      this.contentPauseRequestedListener.bind(this))
-    this.player.ima.addEventListener(event.STARTED, this.startedListener.bind(this))
-    this.player.ima.addEventListener(event.PAUSED, this.pausedListener.bind(this))
-    this.player.ima.addEventListener(event.RESUMED, this.resumedListener.bind(this))
-    this.player.ima.addEventListener(event.COMPLETE, this.completeListener.bind(this))
-    this.player.ima.addEventListener(event.SKIPPED, this.skippedListener.bind(this))
-    this.player.ima.addEventListener(event.CLICK, this.clickListener.bind(this))
-    this.player.ima.addEventListener(google.ima.AdErrorEvent.Type.AD_ERROR,
-      this.errorListener.bind(this))
+
+    this.references = []
+    this.references[event.LOADED] = this.loadedListener.bind(this)
+    this.references[event.CONTENT_PAUSE_REQUESTED] =
+      this.contentPauseRequestedListener.bind(this)
+    this.references[event.STARTED] = this.startedListener.bind(this)
+    this.references[event.PAUSED] = this.pausedListener.bind(this)
+    this.references[event.RESUMED] = this.resumedListener.bind(this)
+    this.references[event.COMPLETE] = this.completeListener.bind(this)
+    this.references[event.SKIPPED] = this.skippedListener.bind(this)
+    this.references[event.CLICK] = this.clickListener.bind(this)
+    this.references[google.ima.AdErrorEvent.Type.AD_ERROR] =
+      this.errorListener.bind(this)
+
+    for (var key in this.references) {
+      this.player.ima.addEventListener(key, this.references[key])
+    }
     this.player.on('adend', this.adEndedListener.bind(this))
   },
 
@@ -133,18 +139,13 @@ var ImaAdsAdapter = youbora.Adapter.extend({
     // Disable playhead monitoring
     this.monitor.stop()
 
-    // Remove listeners
-    this.player.ima.removeEventListener(event.LOADED, this.loadedListener)
-    this.player.ima.removeEventListener(event.CONTENT_PAUSE_REQUESTED,
-      this.contentPauseRequestedListener)
-    this.player.ima.removeEventListener(event.STARTED, this.startedListener)
-    this.player.ima.removeEventListener(event.PAUSED, this.pausedListener)
-    this.player.ima.removeEventListener(event.RESUMED, this.resumedListener)
-    this.player.ima.removeEventListener(event.COMPLETE, this.completeListener)
-    this.player.ima.removeEventListener(event.SKIPPED, this.skippedListener)
-    this.player.ima.removeEventListener(event.CLICK, this.clickListener)
-    this.player.ima.removeEventListener(google.ima.AdErrorEvent.Type.AD_ERROR,
-      this.errorListener)
+    // unregister listeners
+    if (this.player && this.references) {
+      for (var key in this.references) {
+        this.player.ima.removeEventListener(key, this.references[key])
+      }
+      this.references = []
+    }
   }
 },
   // Static Members

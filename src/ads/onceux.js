@@ -40,13 +40,18 @@ var OnceUXAdsAdapter = youbora.Adapter.extend({
     this.monitorPlayhead(true, false)
 
     // Register listeners
-    this.player.on('onceux-linearad-start', this.startedListener.bind(this))
-    this.player.on('onceux-linearad-pause', this.pausedListener.bind(this))
-    this.player.on('onceux-linearad-resume', this.resumedListener.bind(this))
-    this.player.on('onceux-linearad-complete', this.completeListener.bind(this))
-    this.player.on('onceux-linearad-skipped', this.skippedListener.bind(this))
-    this.player.on('adserror', this.errorListener.bind(this))
-    this.player.on('ads-click', this.clickListener.bind(this))
+    this.references = []
+    this.references['onceux-linearad-start'] = this.startedListener.bind(this)
+    this.references['onceux-linearad-pause'] = this.pausedListener.bind(this)
+    this.references['onceux-linearad-resume'] = this.resumedListener.bind(this)
+    this.references['onceux-linearad-complete'] = this.completeListener.bind(this)
+    this.references['onceux-linearad-skipped'] = this.skippedListener.bind(this)
+    this.references['adserror'] = this.errorListener.bind(this)
+    this.references['ads-click'] = this.clickListener.bind(this)
+
+    for (var key in this.references) {
+      this.player.on(key, this.references[key])
+    }
   },
 
   startedListener: function (e) {
@@ -83,13 +88,12 @@ var OnceUXAdsAdapter = youbora.Adapter.extend({
     this.monitor.stop()
 
     // unregister listeners
-    this.player.off('onceux-linearad-start', this.startedListener)
-    this.player.off('onceux-linearad-pause', this.pausedListener)
-    this.player.off('onceux-linearad-resume', this.resumedListener)
-    this.player.off('onceux-linearad-complete', this.completeListener)
-    this.player.off('onceux-linearad-skipped', this.skippedListener)
-    this.player.off('adserror', this.errorListener)
-    this.player.off('ads-click', this.clickListener)
+    if (this.player && this.references) {
+      for (var key in this.references) {
+        this.player.off(key, this.references[key])
+      }
+      this.references = []
+    }
   }
 },
   // Static Members

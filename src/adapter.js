@@ -90,18 +90,23 @@ var Videojs5Adapter = youbora.Adapter.extend({
     this.monitorPlayhead(true, false)
 
     // Register listeners
-    this.player.on('loadstart', this.loadstartListener.bind(this))
-    this.player.on('adsready', this.adsreadyListener.bind(this))
-    this.player.on('play', this.playListener.bind(this))
-    this.player.on('timeupdate', this.timeupdateListener.bind(this))
-    this.player.on('pause', this.pauseListener.bind(this))
-    this.player.on('playing', this.playingListener.bind(this))
-    this.player.on('abort', this.abortListener.bind(this))
-    this.player.on('ended', this.endedListener.bind(this))
-    this.player.on('dispose', this.disposeListener.bind(this))
-    this.player.on('seeking', this.seekingListener.bind(this))
-    this.player.on('seeked', this.seekedListener.bind(this))
-    this.player.on('error', this.errorListener.bind(this))
+    this.references = []
+    this.references['loadstart'] = this.loadstartListener.bind(this)
+    this.references['adsready'] = this.adsreadyListener.bind(this)
+    this.references['play'] = this.playListener.bind(this)
+    this.references['timeupdate'] = this.timeupdateListener.bind(this)
+    this.references['pause'] = this.pauseListener.bind(this)
+    this.references['playing'] = this.playingListener.bind(this)
+    this.references['abort'] = this.abortListener.bind(this)
+    this.references['ended'] = this.endedListener.bind(this)
+    this.references['dispose'] = this.disposeListener.bind(this)
+    this.references['seeking'] = this.seekingListener.bind(this)
+    this.references['seeked'] = this.seekedListener.bind(this)
+    this.references['error'] = this.errorListener.bind(this)
+
+    for (var key in this.references) {
+      this.player.on(key, this.references[key])
+    }
   },
 
   loadstartListener: function (e) {
@@ -180,20 +185,13 @@ var Videojs5Adapter = youbora.Adapter.extend({
   unregisterListeners: function () {
     // Disable playhead monitoring
     this.monitor.stop()
-
     // unregister listeners
-    this.player.off('loadstart', this.loadstartListener)
-    this.player.off('adsready', this.adsreadyListener)
-    this.player.off('play', this.playListener)
-    this.player.off('playing', this.playingListener)
-    this.player.off('pause', this.pauseListener)
-    this.player.off('abort', this.abortListener)
-    this.player.off('ended', this.endedListener)
-    this.player.off('dispose', this.disposeListener)
-    this.player.off('seeking', this.seekingListener)
-    this.player.off('seeked', this.seekedListener)
-    this.player.off('timeupdate', this.timeupdateListener)
-    this.player.off('error', this.errorListener)
+    if (this.player && this.references) {
+      for (var key in this.references) {
+        this.player.off(key, this.references[key])
+      }
+      this.references = []
+    }
   },
 
   loadAdsAdapter: function () {

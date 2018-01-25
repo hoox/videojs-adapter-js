@@ -84,20 +84,25 @@ var FreewheelAdsAdapter = youbora.Adapter.extend({
       'ads-pod-ended',
       'ads-allpods-completed'
     ])*/
+    this.references = []
     if (this.player.ima3) {
       // Register listeners
-      this.player.on('ima3-started', this.startJoinListener.bind(this))
-      this.player.on('ima3-paused', this.pausedListener.bind(this))
-      this.player.on('ima3-resumed', this.resumedListener.bind(this))
-      this.player.on('ima3-complete', this.adEndedListener.bind(this))
-      this.player.on('ima3-skipped', this.skippedListener.bind(this))
+      this.references['ima3-started'] = this.startJoinListener.bind(this)
+      this.references['ima3-paused'] = this.pausedListener.bind(this)
+      this.references['ima3-resumed'] = this.resumedListener.bind(this)
+      this.references['ima3-complete'] = this.adEndedListener.bind(this)
+      this.references['ima3-skipped'] = this.skippedListener.bind(this)
     } else if (this.player.FreeWheelPlugin) {
       // Register listeners
-      this.player.on('ads-ad-started', this.startJoinListener.bind(this))
-      this.player.on('ads-pause', this.pausedListener.bind(this))
-      this.player.on('ads-play', this.resumedListener.bind(this))
-      this.player.on('ads-ad-ended', this.adEndedListener.bind(this))
-      this.player.on('ads-click', this.clickListener.bind(this))
+      this.references['ads-ad-started'] = this.startJoinListener.bind(this)
+      this.references['ads-pause'] = this.pausedListener.bind(this)
+      this.references['ads-play'] = this.resumedListener.bind(this)
+      this.references['ads-ad-ended'] = this.adEndedListener.bind(this)
+      this.references['ads-click'] = this.clickListener.bind(this)
+    }
+
+    for (var key in this.references) {
+      this.player.on(key, this.references[key])
     }
   },
 
@@ -151,21 +156,12 @@ var FreewheelAdsAdapter = youbora.Adapter.extend({
     // Disable playhead monitoring
     this.monitor.stop()
 
-    // Remove listeners
-    if (this.player.ima3) {
-      // Register listeners
-      this.player.off('ima3-started', this.startJoinListener)
-      this.player.off('ima3-paused', this.pausedListener)
-      this.player.off('ima3-resumed', this.resumedListener)
-      this.player.off('ima3-complete', this.adEndedListener)
-      this.player.off('ima3-skipped', this.skippedListener)
-    } else if (this.player.FreeWheelPlugin) {
-      // Register listeners
-      this.player.off('ads-ad-started', this.startedListener)
-      this.player.off('ads-pause', this.pausedListener)
-      this.player.off('ads-play', this.resumedListener)
-      this.player.off('ads-ad-ended', this.adEndedListener)
-      this.player.off('ads-click', this.clickListener)
+    // unregister listeners
+    if (this.player && this.references) {
+      for (var key in this.references) {
+        this.player.off(key, this.references[key])
+      }
+      this.references = []
     }
   }
 })
