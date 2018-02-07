@@ -1,3 +1,7 @@
+## [Unreleased] - 2018-02-07
+### Fix
+- Fixed errorcode = 2 detection, it will close the view for all cases
+
 ## [6.1.6] - 2018-01-25
 ### Fix
 - Fixed player access error when setting new adapter (references for unregisterListeners)
