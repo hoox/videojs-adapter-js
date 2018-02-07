@@ -177,7 +177,7 @@ var Videojs5Adapter = youbora.Adapter.extend({
     if (this.player.error && this.player.error()) {
       this.fireError(this.player.error().code, this.player.error().message)
     }
-    if (Videojs5Adapter.ContribHlsTech.isUsed(this) && this.player.error().code === 2) {
+    if (this.player.error().code === 2) {
       this.fireStop() // Fatal error
     }
   },
