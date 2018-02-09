@@ -1,4 +1,4 @@
-## [Unreleased] - 2018-02-07
+## [6.1.7] - 2018-02-09
 ### Fix
 - Fixed errorcode = 2 detection, it will close the view for all cases
 
