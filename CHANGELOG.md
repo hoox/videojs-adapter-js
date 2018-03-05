@@ -1,3 +1,7 @@
+## [6.1.8-beta] - 2018-03-05
+### Fix
+- Fixed onceux issues for brightcove
+
 ## [6.1.7] - 2018-02-09
 ### Fix
 - Fixed errorcode = 2 detection, it will close the view for all cases
