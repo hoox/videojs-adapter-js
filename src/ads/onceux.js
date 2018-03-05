@@ -18,6 +18,16 @@ var OnceUXAdsAdapter = youbora.Adapter.extend({
     return this.player.onceux.duration()
   },
 
+  getPosition: function () {
+    if (this.plugin.getAdapter().flags.isJoined) {
+      if (this.plugin.getAdapter().getPlayhead() <= this.plugin.getAdapter().getDuration()) {
+        return "mid"
+      }
+      return "post"
+    }
+    return "pre"
+  },
+
   registerListeners: function () {
     // Console all events if logLevel=DEBUG
     youbora.Util.logAllEvents(this.player, [
@@ -68,7 +78,7 @@ var OnceUXAdsAdapter = youbora.Adapter.extend({
   },
 
   completeListener: function (e) {
-    this.fireStop()
+    this.fireStop({ adPlayhead: this.getDuration() })
   },
 
   skippedListener: function (e) {

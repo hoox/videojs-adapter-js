@@ -124,10 +124,11 @@ var Videojs5Adapter = youbora.Adapter.extend({
 
   timeupdateListener: function (e) {
     if (this.getPlayhead() > 0.1) {
+      this.fireStart()
       this.fireJoin()
 
       // Send seek end
-      if (this.lastSeekPlayhead && this.lastSeekPlayhead !== this.getPlayhead()) {
+      if (!this.flags.isPaused && this.lastSeekPlayhead && this.lastSeekPlayhead !== this.getPlayhead()) {
         this.fireSeekEnd()
         this.lastSeekPlayhead = false
       }
