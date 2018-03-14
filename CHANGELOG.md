@@ -1,3 +1,8 @@
+## [6.1.8] - 2018-03-14
+### Fix
+- Fixed multiple seek issue
+- Packaged with `lib 6.1.13`
+
 ## [6.1.8-beta] - 2018-03-05
 ### Fix
 - Fixed onceux issues for brightcove
