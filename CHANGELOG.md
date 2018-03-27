@@ -1,3 +1,9 @@
+## [6.1.9] - 2018-03-27
+### Fix
+- Fixed player version 5 and 6 detection to use registerplugin and plugin methods
+### Library
+- Packaged with `lib 6.1.14`
+
 ## [6.1.8] - 2018-03-14
 ### Fix
 - Fixed multiple seek issue

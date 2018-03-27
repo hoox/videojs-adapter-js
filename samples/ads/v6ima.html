@@ -16,13 +16,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-ima/0.8.0/videojs.ima.js"></script>
   <style>
     .vjs-ad-playing.vjs-ad-playing .vjs-control-bar {
-        display: none;
+      display: none;
     }
-    </style>
-<!---->
-<!-- YouboraLib -->
-<script src="../../dist/sp.min.js"></script>
-<!---->
+  </style>
+  <!---->
+  <!-- YouboraLib -->
+  <script src="../../dist/sp.min.js"></script>
+  <!---->
 </head>
 
 <body>
@@ -35,6 +35,11 @@
     // Player init
     window.player = videojs('video1')
 
+    /*player.youbora({
+        'accountCode': 'powerdev',
+        'ad.ignore': false,
+        'ad.afterStop': 1,
+      })*/
     // Turn on logs
     youbora.Log.logLevel = youbora.Log.Level.DEBUG
 
@@ -64,33 +69,32 @@
         // 'content.metadata': {
         //   custom_info: 'info'
         // },
-         'ad.metadata': {
-           campaign: 'funciona'
-         },
+        'ad.metadata': {
+          campaign: 'funciona'
+        },
         // 'extraparam.1': 'myExtraParam1',
         // 'extraparam.2': 'myExtraParam2'
       })
 
       plugin.setAdapter(new youbora.adapters.Videojs5(player))
+    }
 
-      // IMA3
-      player.ima({
-        id: 'video1',
-        adTagUrl: 'http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&' +
+    // IMA3
+    player.ima({
+      id: 'video1',
+      adTagUrl: 'http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&' +
         'iu=/124319096/external/ad_rule_samples&ciu_szs=300x250&ad_rule=1&' +
         'impl=s&gdfp_req=1&env=vp&output=xml_vmap1&unviewed_position_start=1&' +
         'cust_params=sample_ar%3Dpremidpostpod%26deployment%3Dgmf-js&cmsid=496&' +
         'vid=short_onecue&correlator='
-      }, player.ima.start);
+    }, player.ima.start);
 
-      player.one('click', function () {
-        player.play();
-      });
+    player.one('click', function() {
+      player.play();
+    });
 
-      player.ima.initializeAdDisplayContainer();
-      player.ima.requestAds();
-    }
-
+    player.ima.initializeAdDisplayContainer();
+    player.ima.requestAds();
   </script>
 </body>
 
