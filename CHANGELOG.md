@@ -1,3 +1,9 @@
+## [6.2.0] - 2018-04-06
+### Fix
+ - Included more fatal error cases
+### Library
+ - Packaged with `lib 6.2.0`
+
 ## [6.1.9] - 2018-03-27
 ### Fix
 - Fixed player version 5 and 6 detection to use registerplugin and plugin methods
