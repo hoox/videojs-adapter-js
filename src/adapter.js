@@ -158,10 +158,12 @@ var Videojs5Adapter = youbora.Adapter.extend({
 
   conditionalStop: function (e) {
     if (!this.plugin.deviceDetector.isIphone()) { // !mobile or tablet ios
+      this.adsEnded = false
       this.fireStop()
     } else { // iphone
-      if (!this.plugin._adsAdapter || typeof google === 'undefined') { // not using ima
-        this.fireStop()
+      if (!this.plugin._adsAdapter || typeof google === 'undefined' || this.adsEnded) { // not using ima
+        this.adsEnded = false
+        this.fireStop({ end: true })
       }
     }
   },

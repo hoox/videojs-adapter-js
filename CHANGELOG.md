@@ -1,3 +1,9 @@
+## [6.2.1] - 2018-04-16
+### Fix
+ - Stop for no postrolls ima case with iphone devices
+### Library
+ - Packaged with `lib 6.2.2`
+
 ## [6.2.0] - 2018-04-06
 ### Fix
  - Included more fatal error cases

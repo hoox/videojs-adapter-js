@@ -87,6 +87,7 @@ var ImaAdsAdapter = youbora.Adapter.extend({
     this.references[event.CLICK] = this.clickListener.bind(this)
     this.references[google.ima.AdErrorEvent.Type.AD_ERROR] =
       this.errorListener.bind(this)
+    this.references[event.ALL_ADS_COMPLETED] = this.adsEndedListener.bind(this)
 
     for (var key in this.references) {
       this.player.ima.addEventListener(key, this.references[key])
@@ -133,6 +134,10 @@ var ImaAdsAdapter = youbora.Adapter.extend({
 
   clickListener: function (e) {
     this.fireClick()
+  },
+
+  adsEndedListener: function (e) {
+    this.plugin.getAdapter().adsEnded = true
   },
 
   unregisterListeners: function () {
