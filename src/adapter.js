@@ -2,7 +2,7 @@
 var youbora = require('youboralib')
 var manifest = require('../manifest.json')
 
-var Videojs5Adapter = youbora.Adapter.extend({
+var VideojsAdapter = youbora.Adapter.extend({
   getVersion: function () {
     return manifest.version + '-' + manifest.name + '-' + manifest.tech
   },
@@ -27,42 +27,42 @@ var Videojs5Adapter = youbora.Adapter.extend({
   },
 
   getResource: function () {
-    if (Videojs5Adapter.HlsJsTech.isUsed(this)) {
-      return Videojs5Adapter.HlsJsTech.getResource(this)
-    } else if (Videojs5Adapter.ShakaTech.isUsed(this)) {
-      return Videojs5Adapter.ShakaTech.getResource(this)
+    if (VideojsAdapter.HlsJsTech.isUsed(this)) {
+      return VideojsAdapter.HlsJsTech.getResource(this)
+    } else if (VideojsAdapter.ShakaTech.isUsed(this)) {
+      return VideojsAdapter.ShakaTech.getResource(this)
     } else {
       return this.player.currentSrc()
     }
   },
 
   getBitrate: function () {
-    if (Videojs5Adapter.ContribHlsTech.isUsed(this)) {
-      return Videojs5Adapter.ContribHlsTech.getBitrate(this)
-    } else if (Videojs5Adapter.HlsJsTech.isUsed(this)) {
-      return Videojs5Adapter.HlsJsTech.getBitrate(this)
-    } else if (Videojs5Adapter.ShakaTech.isUsed(this)) {
-      return Videojs5Adapter.ShakaTech.getBitrate(this)
+    if (VideojsAdapter.ContribHlsTech.isUsed(this)) {
+      return VideojsAdapter.ContribHlsTech.getBitrate(this)
+    } else if (VideojsAdapter.HlsJsTech.isUsed(this)) {
+      return VideojsAdapter.HlsJsTech.getBitrate(this)
+    } else if (VideojsAdapter.ShakaTech.isUsed(this)) {
+      return VideojsAdapter.ShakaTech.getBitrate(this)
     }
   },
 
   getRendition: function () {
-    if (Videojs5Adapter.ContribHlsTech.isUsed(this)) {
-      return Videojs5Adapter.ContribHlsTech.getRendition(this)
-    } else if (Videojs5Adapter.HlsJsTech.isUsed(this)) {
-      return Videojs5Adapter.HlsJsTech.getRendition(this)
-    } else if (Videojs5Adapter.ShakaTech.isUsed(this)) {
-      return Videojs5Adapter.ShakaTech.getRendition(this)
+    if (VideojsAdapter.ContribHlsTech.isUsed(this)) {
+      return VideojsAdapter.ContribHlsTech.getRendition(this)
+    } else if (VideojsAdapter.HlsJsTech.isUsed(this)) {
+      return VideojsAdapter.HlsJsTech.getRendition(this)
+    } else if (VideojsAdapter.ShakaTech.isUsed(this)) {
+      return VideojsAdapter.ShakaTech.getRendition(this)
     }
   },
 
   getPlayerName: function () {
-    var name = 'videojs5'
-    if (Videojs5Adapter.ContribHlsTech.isUsed(this)) name += '-hls' // hls-contrib
-    if (Videojs5Adapter.HlsJsTech.isUsed(this)) name += '-hlsjs' // hlsjs
-    if (Videojs5Adapter.ShakaTech.isUsed(this)) name += '-shaka' // shaka
-    if (Videojs5Adapter.ImaAdsAdapter.isUsed(this)) name += '-ima' // ima3
-    if (Videojs5Adapter.OnceUXAdsAdapter.isUsed(this)) this.pluginName += '-oux' // OnceUX
+    var name = 'videojs'
+    if (VideojsAdapter.ContribHlsTech.isUsed(this)) name += '-hls' // hls-contrib
+    if (VideojsAdapter.HlsJsTech.isUsed(this)) name += '-hlsjs' // hlsjs
+    if (VideojsAdapter.ShakaTech.isUsed(this)) name += '-shaka' // shaka
+    if (VideojsAdapter.ImaAdsAdapter.isUsed(this)) name += '-ima' // ima3
+    if (VideojsAdapter.OnceUXAdsAdapter.isUsed(this)) this.pluginName += '-oux' // OnceUX
     if (this.player.FreeWheelPlugin) name += '-fw' // freewheel
     return name
   },
@@ -202,14 +202,14 @@ var Videojs5Adapter = youbora.Adapter.extend({
   loadAdsAdapter: function () {
     if (this.plugin.getAdsAdapter() === null) {
       var adapter
-      if (typeof google !== 'undefined' && Videojs5Adapter.ImaAdsAdapter.isUsed(this)) {
-        adapter = new Videojs5Adapter.ImaAdsAdapter(this.player) // IMA
-      } else if (Videojs5Adapter.OnceUXAdsAdapter.isUsed(this)) {
-        adapter = new Videojs5Adapter.OnceUXAdsAdapter(this.player) // OnceUX
+      if (typeof google !== 'undefined' && VideojsAdapter.ImaAdsAdapter.isUsed(this)) {
+        adapter = new VideojsAdapter.ImaAdsAdapter(this.player) // IMA
+      } else if (VideojsAdapter.OnceUXAdsAdapter.isUsed(this)) {
+        adapter = new VideojsAdapter.OnceUXAdsAdapter(this.player) // OnceUX
       } else if (this.player.ads) {
-        adapter = new Videojs5Adapter.FreewheelAdsAdapter(this.player) // Freewheel
+        adapter = new VideojsAdapter.FreewheelAdsAdapter(this.player) // Freewheel
       } else { // Generic
-        adapter = new Videojs5Adapter.GenericAdsAdapter(this.player) // Generic
+        adapter = new VideojsAdapter.GenericAdsAdapter(this.player) // Generic
       }
       this.plugin.setAdsAdapter(adapter)
     }
@@ -230,6 +230,6 @@ var Videojs5Adapter = youbora.Adapter.extend({
   }
 )
 
-youbora.adapters.Videojs5 = Videojs5Adapter
+youbora.adapters.Videojs = VideojsAdapter
 
-module.exports = youbora.adapters.Videojs5
+module.exports = youbora.adapters.Videojs

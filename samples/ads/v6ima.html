@@ -44,7 +44,7 @@
     youbora.Log.logLevel = youbora.Log.Level.DEBUG
 
     // Init youbora
-    if (typeof youbora.adapters.Videojs5 != "undefined") {
+    if (typeof youbora.adapters.Videojs != "undefined") {
       window.plugin = new youbora.Plugin({
         'accountCode': 'nicedev',
         'ad.ignore': false,
@@ -76,7 +76,7 @@
         // 'extraparam.2': 'myExtraParam2'
       })
 
-      plugin.setAdapter(new youbora.adapters.Videojs5(player))
+      plugin.setAdapter(new youbora.adapters.Videojs(player))
     }
 
     // IMA3
