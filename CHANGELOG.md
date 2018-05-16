@@ -1,3 +1,9 @@
+## [6.2.2] - 2018-05-16
+### Fix
+ - Stop for fatal errors (case errorcode 4)
+### Library
+ - Packaged with `lib 6.2.6`
+
 ## [6.2.1] - 2018-04-16
 ### Fix
  - Stop for no postrolls ima case with iphone devices

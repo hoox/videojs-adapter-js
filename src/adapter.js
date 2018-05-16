@@ -181,7 +181,7 @@ var VideojsAdapter = youbora.Adapter.extend({
     if (this.player.error && this.player.error()) {
       this.fireError(this.player.error().code, this.player.error().message)
     }
-    if (this.player.error().code === 2 ||
+    if (this.player.error().code === 2 || this.player.error().code === 4 ||
       (typeof this.player.error === "number" && this.player.error() < 0)) {
       this.fireStop() // Fatal error
     }
