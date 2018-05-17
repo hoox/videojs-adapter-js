@@ -1,3 +1,9 @@
+## [6.2.3] - 2018-05-17
+### Fix
+ - Fix for error not stopping views when it was created with adadapter
+### Added
+ - Playrate report
+
 ## [6.2.2] - 2018-05-16
 ### Fix
  - Stop for fatal errors (case errorcode 4)

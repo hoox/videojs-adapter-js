@@ -73,6 +73,14 @@ var VideojsAdapter = youbora.Adapter.extend({
     return ver
   },
 
+  getPlayrate: function () {
+    if (this.flags.isPaused) return 0
+    if (typeof this.player.playbackRate() !== "undefined") {
+      return this.player.playbackRate()
+    }
+    return 1
+  },
+
   getTech: function () {
     // NOTE: Videojs discourages accessing techs from plugins because they want
     // devs to develop tech-agnostic plugins. I don't think this applies to us,
@@ -180,10 +188,10 @@ var VideojsAdapter = youbora.Adapter.extend({
   errorListener: function (e) {
     if (this.player.error && this.player.error()) {
       this.fireError(this.player.error().code, this.player.error().message)
-    }
-    if (this.player.error().code === 2 || this.player.error().code === 4 ||
-      (typeof this.player.error === "number" && this.player.error() < 0)) {
-      this.fireStop() // Fatal error
+      var code = Number(this.player.error().code)
+      if (code === 2 || code === 4 || code < 0) {
+        this.plugin.fireStop() // Fatal error
+      }
     }
   },
 
