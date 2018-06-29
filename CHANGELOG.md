@@ -1,4 +1,8 @@
-## [6.2.3] - 2018-05-17
+## [6.3.0] - 2018-05-29
+### Library
+ - Packaged with `lib 6.3.0`
+
+ ## [6.2.3] - 2018-05-17
 ### Fix
  - Fix for error not stopping views when it was created with adadapter
 ### Added
