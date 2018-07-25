@@ -133,7 +133,7 @@ var VideojsAdapter = youbora.Adapter.extend({
 
   timeupdateListener: function (e) {
     if (this.getPlayhead() > 0.1) {
-      this.fireStart()
+      if (!this.crashed) this.fireStart()
       this.fireJoin()
 
       // Send seek end
@@ -191,6 +191,7 @@ var VideojsAdapter = youbora.Adapter.extend({
       var code = Number(this.player.error().code)
       if (code === 2 || code === 4 || code < 0) {
         this.plugin.fireStop() // Fatal error
+        this.crashed = true
       }
     }
   },

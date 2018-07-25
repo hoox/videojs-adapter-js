@@ -1,3 +1,9 @@
+## [6.3.1] - 2018-07-25
+### Fix
+ - Prevent additional views created to report the same error
+### Library
+ - Packaged with `lib 6.3.4`
+
 ## [6.3.0] - 2018-05-29
 ### Library
  - Packaged with `lib 6.3.0`
