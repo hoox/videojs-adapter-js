@@ -1,3 +1,9 @@
+## [6.3.2] - 2018-08-03
+### Fix
+ - Prevent additional views created to report the same error for safari browser
+### Library
+ - Packaged with `lib 6.3.5`
+
 ## [6.3.1] - 2018-07-25
 ### Fix
  - Prevent additional views created to report the same error

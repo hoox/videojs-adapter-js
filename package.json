@@ -1,6 +1,6 @@
 {
   "name": "youbora-adapter-videojs",
-  "version": "6.3.1",
+  "version": "6.3.2",
   "main": "src/adapter.js",
   "description": "Adapter for NPAW's youboralib",
   "scripts": {
@@ -12,7 +12,7 @@
     "clean": "rm -rf dist deploy manifest.json"
   },
   "dependencies": {
-    "youboralib": "6.3.4"
+    "youboralib": "6.3.5"
   },
   "devDependencies": {
     "webpack": "^4.13.0",

@@ -120,7 +120,7 @@ var VideojsAdapter = youbora.Adapter.extend({
 
   loadstartListener: function (e) {
     youbora.Log.notice('Player detected ' + this.getPlayerName())
-    if (this.player.autoplay()) this.fireStart()
+    if (this.player.autoplay() && !this.crashed) this.fireStart()
   },
 
   adsreadyListener: function (e) {
