@@ -1,3 +1,7 @@
+## [6.3.3] - 2018-08-07
+### Fix
+ - Crashing when player stops and adapter is not set
+
 ## [6.3.2] - 2018-08-03
 ### Fix
  - Prevent additional views created to report the same error for safari browser

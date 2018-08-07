@@ -165,6 +165,7 @@ var VideojsAdapter = youbora.Adapter.extend({
   },
 
   conditionalStop: function (e) {
+    if (!this.plugin) return null
     if (!this.plugin.deviceDetector.isIphone()) { // !mobile or tablet ios
       this.adsEnded = false
       this.fireStop()
