@@ -104,6 +104,8 @@ var ImaAdsAdapter = youbora.Adapter.extend({
   },
 
   startedListener: function (e) {
+    if (this.plugin && this.plugin.getAdapter()) this.plugin.getAdapter().fireStart()
+    this.fireStart()
     this.fireJoin()
   },
 

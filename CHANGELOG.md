@@ -1,3 +1,8 @@
+## [6.3.4] - 2018-08-07
+### Fix
+ - Preroll not tracked with ima on android chrome
+ - Only first ad of each group tracked
+
 ## [6.3.3] - 2018-08-07
 ### Fix
  - Crashing when player stops and adapter is not set
