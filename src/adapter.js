@@ -128,7 +128,16 @@ var VideojsAdapter = youbora.Adapter.extend({
   },
 
   playListener: function (e) {
-    this.fireStart()
+    if (!this.flags.isStarted) {
+      this.lastSrc = this.getResource()
+      this.fireStart()
+    } else {
+      if (this.lastSrc !== this.getResource()) {
+        this.fireStop()
+        this.fireStart()
+        this.lastSrc = this.getResource()
+      }
+    }
   },
 
   timeupdateListener: function (e) {
