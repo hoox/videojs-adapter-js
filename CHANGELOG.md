@@ -1,3 +1,10 @@
+## [6.4.2] - 2018-12-19
+### Library
+ - Packaged with `lib 6.4.12`
+### Fix
+ - Start not being sent always when play button is pressed
+ - Blocked autoplay detection
+
 ## [6.4.1] - 2018-10-22
 ### Library
  - Packaged with `lib 6.4.9`

@@ -12,7 +12,7 @@
     "clean": "rm -rf dist deploy manifest.json"
   },
   "dependencies": {
-    "youboralib": "^6.4.11"
+    "youboralib": "^6.4.12"
   },
   "devDependencies": {
     "webpack": "^4.22.0",
