@@ -1,3 +1,7 @@
+## [6.4.3] - 2019-01-03
+### Fix
+ - Start not sent when autoplay is blocked
+
 ## [6.4.2] - 2018-12-19
 ### Library
  - Packaged with `lib 6.4.12`
