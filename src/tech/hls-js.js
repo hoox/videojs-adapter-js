@@ -7,7 +7,10 @@ module.exports = {
   },
 
   getResource: function (adapter) {
-    return adapter.getTech().hls_.url
+    if (adapter.getTech().hls_) {
+      return adapter.getTech().hls_.url
+    }
+    return adapter.getTech().hls.source_.src
   },
 
   getBitrate: function (adapter) {

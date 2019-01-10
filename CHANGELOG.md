@@ -1,3 +1,9 @@
+## [6.4.4] - 2019-01-10
+### Fix
+ - Resource when using hls not being reported always
+### Library
+ - Packaged with `lib 6.4.13`
+
 ## [6.4.3] - 2019-01-03
 ### Fix
  - Start not sent when autoplay is blocked
