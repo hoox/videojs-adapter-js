@@ -1,6 +1,6 @@
 {
   "name": "youbora-adapter-videojs",
-  "version": "6.4.4",
+  "version": "6.4.5",
   "main": "src/adapter.js",
   "description": "Adapter for NPAW's youboralib",
   "scripts": {
