@@ -1,0 +1,64 @@
+{
+  "name": "videojs",
+  "type": "adapter",
+  "tech": "js",
+  "author": "Jordi Aguilar",
+  "version": "6.4.5-patched",
+  "built": "2019-03-15",
+  "repo": "https://github.com/hoox/videojs-adapter-js.git",
+  "libVersion": "^6.4.13",
+  "features": {
+    "buffer": "monitor",
+    "seek": "native",
+    "getters": [
+      "getPlayhead",
+      "getPlayrate",
+      "getDuration",
+      "getBitrate",
+      "getRendition",
+      "getResource"
+    ]
+  },
+  "ads": [
+    {
+      "buffer": "monitor",
+      "seek": "monitor",
+      "getters": [
+        "getPlayhead",
+        "getDuration",
+        "getTitle",
+        "getPosition"
+      ],
+      "filename": "freewheel.js"
+    },
+    {
+      "buffer": "monitor",
+      "seek": "monitor",
+      "getters": [],
+      "filename": "generic.js"
+    },
+    {
+      "buffer": "monitor",
+      "seek": "monitor",
+      "getters": [
+        "getPlayhead",
+        "getDuration",
+        "getTitle",
+        "getResource",
+        "getPosition"
+      ],
+      "filename": "ima.js"
+    },
+    {
+      "buffer": "monitor",
+      "seek": "monitor",
+      "getters": [
+        "getPlayhead",
+        "getDuration",
+        "getResource",
+        "getPosition"
+      ],
+      "filename": "onceux.js"
+    }
+  ]
+}

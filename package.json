@@ -1,6 +1,6 @@
 {
   "name": "youbora-adapter-videojs",
-  "version": "6.4.5",
+  "version": "6.4.5-patched",
   "main": "src/adapter.js",
   "description": "Adapter for NPAW's youboralib",
   "scripts": {
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://bitbucket.org/npaw/videojs-adapter-js.git"
+    "url": "git+https://github.com/hoox/videojs-adapter-js.git"
   },
   "author": "Jordi Aguilar",
   "license": "MIT",
