@@ -209,7 +209,9 @@ var VideojsAdapter = youbora.Adapter.extend({
 
   unregisterListeners: function () {
     // Disable playhead monitoring
-    this.monitor.stop()
+    if (this.monitor) {
+      this.monitor.stop()
+    }
     // unregister listeners
     if (this.player && this.references) {
       for (var key in this.references) {
